@@ -1,0 +1,39 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: go-sec-static-scanner
+spec:
+  params:
+  - default: "0"
+    description: toggles debug mode for the pipeline
+    name: pipeline-debug
+  - default: "src"
+    description: source code directory path
+    name: src-dir
+  results:
+  - description: status of go-sec task, possible value are-success|failure
+    name: status
+  stepTemplate:
+    env:
+    - name: PIPELINE_DEBUG
+      value: $(params.pipeline-debug)
+  steps:
+  - args:
+    - |
+      #!/bin/sh
+      if [ "$PIPELINE_DEBUG" == "1" ]; then
+        set -x +e
+      fi
+      srcPath=$(workspaces.git-source.path)/$(params.src-dir)
+      echo "running gosec scan on $srcPath"
+      gosec $srcPath
+      retVal=$?
+      if [ $retVal -ne 0 ]; then
+        echo "go-sec static scanner failed"
+        exit 1
+      fi
+    command:
+    - /bin/sh
+    - -c
+    image: icr.io/gitsecure/gosec:2.9.1
+    name: go-sec

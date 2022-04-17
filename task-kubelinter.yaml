@@ -1,0 +1,38 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kubelinter-deployment-scan
+spec:
+  stepTemplate:
+    env:
+    - name: PIPELINE_DEBUG
+      value: $(params.pipeline-debug)
+  params:
+  - default: "0"
+    description: toggles debug mode for the pipeline
+    name: pipeline-debug
+  - description: The path to the yaml file to deploy within the git source
+    name: pathToYamlFile
+  steps:
+  - args:
+    - |
+      #!/bin/sh
+      if [ "$PIPELINE_DEBUG" == "1" ]; then
+        set -x +e
+      fi
+      yamlfile=$(workspaces.git-source.path)/$(params.pathToYamlFile)
+      echo "running kube-lint scan on $yamlfile"
+      kube-linter lint $yamlfile
+      retVal=$?
+      if [ $retVal -ne 0 ]; then
+        echo "Deployment mis-configuration detected"
+        exit 1
+      fi
+    command:
+    - /bin/sh
+    - -c
+    image: icr.io/gitsecure/kubelinter:0.2.5
+    name: kube-linter
+  workspaces:
+  - description: The git repo
+    name: git-source
