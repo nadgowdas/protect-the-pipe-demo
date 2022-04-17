@@ -1,4 +1,4 @@
-# SSF Sample Tekton Pipeline
+# Protect The Pipe! Demo Pipeline
 
 This is a sample tekton based application build pipepline. 
 
