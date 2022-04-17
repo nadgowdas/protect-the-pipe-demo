@@ -69,10 +69,44 @@ spec:
       cat $(params.CONTEXT)/image-digested | jq '.[0].value' -rj | tee /tekton/results/IMAGE_DIGEST
       echo $(params.IMAGE) > /tekton/results/IMAGE_URL
     workingDir: $(workspaces.source.path)
+  - name: cosign-sign-img
+    image: icr.io/gitsecure/cosign:1.7.2
+    imagePullPolicy: Always
+    command: ["/bin/sh", "-c"]
+    workingDir: $(workspaces.source.path)
+    env:
+      # specifying DOCKER_CONFIG is required to allow buildkit to detect docker credentials
+      - name: DOCKER_CONFIG
+        value: /secrets
+    args:
+      - |
+        #!/bin/sh
+
+        cat $(params.CONTEXT)/image-digested | jq '.[0].value' -rj | tee img-digest
+        digest=$(cat img-digest)
+        imgRef=$(params.IMAGE)@$digest
+        export COSIGN_PASSWORD="passw0rd"
+        echo "Cosign Verify Image "$imgRef
+        cosign sign --key /etc/cosign/cosign.key $imgRef
+        retVal=$?
+        if [ $retVal -ne 0 ]; then
+          echo "error signing image"
+        fi
+    volumeMounts:
+      - mountPath: /etc/cosign
+        name: cosign-private-key
+      - mountPath: /secrets
+        name: regcred               
   volumes:
   - name: registry-secret
     secret:
       secretName: img-registry-secret
+  - name: cosign-private-key
+    secret:
+      secretName: cosign-private-key
+  - name: regcred
+    secret:
+      secretName: img-registry-secret        
   workspaces:
   - name: source
 

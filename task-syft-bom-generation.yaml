@@ -56,8 +56,40 @@ spec:
       echo $(params.sbom-filepath) | tee $(results.sbom-store.path)
     securityContext:
       runAsUser: 0
+  - name: cosign-attach-bom
+    image: icr.io/gitsecure/cosign:1.7.2
+    imagePullPolicy: Always
+    env:
+      # specifying DOCKER_CONFIG is required to allow buildkit to detect docker credentials
+      - name: DOCKER_CONFIG
+        value: /secrets
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        #!/bin/sh
+          
+        # ls -la /secrets
+        # cat /secrets/.dockerconfig > /secrets/coonfig.json
+        # cat /secrets/coonfig.json
+        imgRef=$(params.image-ref)@$(params.image-digest)
+        sbomFp=$(workspaces.source.path)/$(params.sbom-filepath)
+        echo "SBOM FP "$sbomFp
+        echo "IMG Ref "$imgRef
+        cosign attach sbom --sbom $sbomFp $imgRef
+        retVal=$?
+        if [ $retVal -ne 0 ]; then
+          echo "error attaching SBOM"
+        fi
+    volumeMounts:
+      - mountPath: /steps
+        name: steps-volume
+      - mountPath: /secrets
+        name: regcred       
   volumes:
   - emptyDir: {}
     name: steps-volume
+  - name: regcred
+    secret:
+      secretName: img-registry-secret    
   workspaces:
   - name: source
