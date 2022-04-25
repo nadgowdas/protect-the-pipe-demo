@@ -1,0 +1,20 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-pipelines
+spec:
+  rules:
+    - name: add-pipeline
+      match:
+        resources:
+          kinds:
+            - Namespace
+      generate:
+        kind: Pipeline 
+        name: regcred
+        namespace: "{{request.object.metadata.name}}"
+        synchronize: true
+        clone:
+          namespace: pipelines 
+          name: 

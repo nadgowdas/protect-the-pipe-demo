@@ -1,0 +1,64 @@
+# Use with https://www.deciduous.app/
+title: Attack Tree for Tekton
+facts:
+- image: Step uses a container image
+  from:
+  - reality:
+- execution: Tekton runs Tasks and Pipelines 
+  from:
+  - reality
+
+attacks:
+- attack_image: Attacker runs an unknown image
+  from:
+  - image
+- exploit_vulnerability: Attacker exploits vulnerability 
+  from:
+  - image
+- tamper_manifests: Attacker tampers with a resource
+  from:
+  - execution
+- dial_out: Attacker connects to external system
+  from:
+  - attack_image
+  - exploit_vulnerability
+  - tamper_manifests
+  - bad_repo
+- bad_repo: Attacker clones malicious repo
+  from:
+  - tamper_manifests
+- elevate_privileges: Attacker runs privilged Pod
+  from:
+  - attack_image
+  - exploit_vulnerability
+
+mitigations:
+- signImages: Require all images are signed
+  from:
+  - attack_image
+- requireScan: Require all images are scanned daily
+  from:
+  - exploit_vulnerability
+- signManifests: Require resource manifests are signed and cannot be tampered with
+  from:
+  - tamper_manifests
+- network_policies: Require network policies
+  from:
+  - dial_out 
+- restrict_repos: Restrict allowed repositories
+  from:
+  - bad_repo
+- pod_security: Require Pod Security Standard with Restricted profile
+  from:
+  - elevate_privileges
+
+goals:
+- host_access: Attacker get access to host or cluster
+  from:
+  - attack_image
+  - exploit_vulnerability
+  - bad_repo
+  - elevate_privileges
+- send_info: Attacker sends data to external system
+  from:
+  - dial_out

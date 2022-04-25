@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-pipeline 
+spec:
+  validationFailureAction: enforce
+  background: true
+  rules:
+  - name: check-task-kind
+    match:
+      resources:
+        kinds:
+        - Pipeline
+    validate:
+      message: "{{request.object.spec.tasks[*].taskRef.kind}} not allowed. Use a ClusterTask instead"
+      deny:
+        conditions:
+          any:
+          - key: "{{ request.object.spec.tasks[*].taskRef.kind }}"
+            operator: AnyIn
+            value: Task

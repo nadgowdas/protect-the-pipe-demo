@@ -1,0 +1,45 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-pipeline-resources
+spec:
+  rules:
+    # - name: generate-run
+    #   match:
+    #     resources:
+    #       kinds:
+    #         - Pipeline
+    #   generate:
+    #     synchronize: true
+    #     kind: PipelineRun
+    #     name: "{{request.object.metadata.name}}-run"
+    #     namespace: "{{request.object.metadata.namespace}}"        
+    #     data:
+    #       spec:
+    #         pipelineRef:
+    #           name: "{{request.object.metadata.name}}"
+    - name: generate-policy
+      match:
+        resources:
+          kinds:
+            - Pipeline
+      generate:
+        synchronize: true
+        kind: ClusterPolicy
+        name: "generate-{{request.object.metadata.name}}"
+        data:
+          spec:
+            rules:
+              - name: add-pipeline
+                match:
+                  resources:
+                    kinds:
+                      - Namespace
+                generate:
+                  kind: Pipeline 
+                  namespace: "\\{{request.object.metadata.name}}"
+                  synchronize: true
+                  clone:
+                    name: "{{request.object.metadata.name}}"
+                    namespace: "{{request.object.metadata.namespace}}"
