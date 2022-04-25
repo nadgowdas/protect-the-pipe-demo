@@ -1,0 +1,37 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-security-context
+spec:
+  rules:
+  - name: mutate-pipeline
+    match:
+      any:
+      - resources:
+          kinds:
+          - PipelineRun
+    mutate:
+      patchStrategicMerge:
+        spec:
+          podTemplate:
+            securityContext:
+              seccompProfile:
+                type: RuntimeDefault
+              runAsNonRoot: true
+              runAsUser: 2000
+              runAsGroup: 3000
+              fsGroup: 2000
+  - name: mutate-task
+    match:
+      any:
+      - resources:
+          kinds:
+          - Task
+          - ClusterTask
+    mutate:
+      foreach: 
+      - list: "request.object.spec.steps"
+        patchesJson6902: |-
+          - path: /spec/steps/{{elementIndex}}/securityContext
+            op: add
+            value: {"seccompProfile":{"type":"RuntimeDefault"},"runAsNonRoot":true,"runAsUser":2000,"runAsGroup":3000,"privileged":false,"capabilities":{"drop":["ALL"]},"allowPrivilegeEscalation":false}

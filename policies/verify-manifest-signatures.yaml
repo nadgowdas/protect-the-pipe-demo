@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: verify-manifest
+spec:
+  validationFailureAction: enforce
+  rules:
+    - name: verify-manifest
+      match:
+        resources:
+          kinds:
+            - PipelineRun
+      validate:
+        manifests:
+          key: |-
+            -----BEGIN PUBLIC KEY-----
+            MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEtS69SctDWseJdFcQnpJGh3Yq3WfM
+            EpLCSBfCcCyTotqkFCsGjhAFiSblvmX8vn51dbnZ7cdtiahat/eehymyJg==
+            -----END PUBLIC KEY-----
