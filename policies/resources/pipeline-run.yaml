@@ -4,4 +4,4 @@ metadata:
   name: hello-goodbye-run
 spec:
   pipelineRef:
-    name: hello-goodbye
+    name: hello-goodbye 

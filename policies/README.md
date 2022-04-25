@@ -7,8 +7,9 @@
 
 2. Require a namespace for a pipeline
 
-3. Generate a policy to generate the pipeline when a new "run" namespace is created
+3. Add `securityContext` to ClusterTask
 
+3. Generate a policy to generate the pipeline when a new "run" namespace is created
 
 ## For Pipeline users
 

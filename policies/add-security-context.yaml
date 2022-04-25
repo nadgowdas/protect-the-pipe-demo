@@ -20,32 +20,18 @@ spec:
               runAsNonRoot: true
               runAsUser: 2000
               runAsGroup: 3000
-              fsGroup: 2000      
-              privileged: false
-              capabilities:
-                drop: 
-                - ALL
-              allowPrivilegeEscalation: false
+              fsGroup: 2000
   - name: mutate-task
     match:
       any:
       - resources:
           kinds:
           - Task
+          - ClusterTask
     mutate:
-      patchStrategicMerge:
-        spec:
-          steps:
-          - (name): "?*"
-            securityContext:
-              seccompProfile:
-                type: RuntimeDefault
-              runAsNonRoot: true
-              runAsUser: 2000
-              runAsGroup: 3000
-              fsGroup: 2000      
-              privileged: false
-              capabilities:
-                drop: 
-                - ALL
-              allowPrivilegeEscalation: false
+      foreach: 
+      - list: "request.object.spec.steps"
+        patchesJson6902: |-
+          - path: /spec/steps/{{elementIndex}}/securityContext
+            op: add
+            value: {"seccompProfile":{"type":"RuntimeDefault"},"runAsNonRoot":true,"runAsUser":2000,"runAsGroup":3000,"privileged":false,"capabilities":{"drop":["ALL"]},"allowPrivilegeEscalation":false}
