@@ -5,18 +5,27 @@ metadata:
 spec:
   validationFailureAction: enforce
   rules:
-  - name: verify-images
+  - name: verify-task-images
     match:
       resources:
         kinds:
         - Task
+        - ClusterTask
     preconditions:
     - key: '{{request.operation}}'
       operator: NotEquals
       value: DELETE
     imageExtractors:
       Task:
-        - path: /spec/steps/*/image
+        - name: "steps"
+          path: /spec/steps/*
+          value: "image"
+          key: "name"
+      ClusterTask:
+        - name: "steps"
+          path: /spec/steps/*
+          value: "image"
+          key: "name"
     verifyImages:
     - imageReferences:
       - "*"

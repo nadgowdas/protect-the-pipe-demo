@@ -1,11 +1,9 @@
 # Policies
-
-
 ## For Pipeline authors
 
-1. Require ClusterTask 
+1. Require a namespace for a pipeline
 
-2. Require a namespace for a pipeline
+2. Require ClusterTask 
 
 3. Add `securityContext` to ClusterTask
 
