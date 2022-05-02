@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   annotations:
-    cosign.sigstore.dev/imageRef: icr.io/gitsecure/grype-vulnerability-scan:v1
+    cosign.sigstore.dev/imageRef: ghcr.io/tap8stry/grype-vulnerability-scan:v1
   name: grype-vulnerability-scan
 spec:
   params:
@@ -46,5 +46,16 @@ spec:
     command:
     - /bin/sh
     - -c
-    image: icr.io/gitsecure/anchore-grype:0.23
+    image: ghcr.io/tap8stry/anchore-grype:0.23
     name: grype-scanner
+    env:
+      # specifying DOCKER_CONFIG is required to allow buildkit to detect docker credentials
+      - name: DOCKER_CONFIG
+        value: /secrets
+    volumeMounts:
+      - mountPath: /secrets
+        name: regcred
+  volumes:
+  - name: regcred
+    secret:
+      secretName: img-registry-secret 

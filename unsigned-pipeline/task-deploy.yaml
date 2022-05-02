@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   annotations:
-    cosign.sigstore.dev/imageRef: icr.io/gitsecure/deploy-using-kubectl:v1
+    cosign.sigstore.dev/imageRef: ghcr.io/tap8stry/deploy-using-kubectl:v1
   name: deploy-using-kubectl
 spec:
   params:
@@ -25,7 +25,7 @@ spec:
     - $(workspaces.git-source.path)/$(params.pathToYamlFile)
     command:
     - sed
-    image: icr.io/gitsecure/alpine
+    image: ghcr.io/tap8stry/alpine
     name: update-yaml
   - args:
     - apply
@@ -33,7 +33,7 @@ spec:
     - $(workspaces.git-source.path)/$(params.pathToYamlFile)
     command:
     - kubectl
-    image: icr.io/gitsecure/k8s-kubectl
+    image: ghcr.io/tap8stry/k8s-kubectl
     name: run-kubectl
   workspaces:
   - description: The git repo

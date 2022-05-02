@@ -31,7 +31,7 @@ spec:
     command:
     - /bin/sh
     - -c
-    image: icr.io/gitsecure/kubelinter:0.2.5
+    image: ghcr.io/tap8stry/kubelinter:0.2.5
     name: kube-linter
   workspaces:
   - description: The git repo

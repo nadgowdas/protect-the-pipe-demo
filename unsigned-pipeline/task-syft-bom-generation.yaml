@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   annotations:
-    cosign.sigstore.dev/imageRef: icr.io/gitsecure/syft-bom-generator:v1
+    cosign.sigstore.dev/imageRef: ghcr.io/tap8stry/syft-bom-generator:v1
   name: syft-bom-generator
 spec:
   params:
@@ -26,7 +26,7 @@ spec:
     - name: PIPELINE_DEBUG
       value: $(params.pipeline-debug)
     - name: DOCKER_CONFIG
-      value: /steps
+      value: /secrets
   steps:
   - args:
     - -o
@@ -34,12 +34,14 @@ spec:
     - --file
     - $(workspaces.source.path)/$(params.sbom-filepath)
     - $(params.image-ref)
-    image: icr.io/gitsecure/syft:v0.27.0
+    image: ghcr.io/tap8stry/syft:v0.27.0
     name: syft-bom-generator
     volumeMounts:
     - mountPath: /steps
       name: steps-volume
-  - image: icr.io/gitsecure/bash
+    - mountPath: /secrets
+      name: regcred  
+  - image: ghcr.io/tap8stry/bash
     name: print-sbom
     script: |
       set -e
@@ -49,7 +51,7 @@ spec:
     volumeMounts:
     - mountPath: /steps
       name: steps-volume
-  - image: icr.io/gitsecure/bash
+  - image: ghcr.io/tap8stry/bash
     name: write-url
     script: |
       set -e
@@ -57,7 +59,7 @@ spec:
     securityContext:
       runAsUser: 0
   - name: cosign-attach-bom
-    image: icr.io/gitsecure/cosign:1.7.2
+    image: ghcr.io/tap8stry/cosign:1.7.2
     imagePullPolicy: Always
     env:
       # specifying DOCKER_CONFIG is required to allow buildkit to detect docker credentials

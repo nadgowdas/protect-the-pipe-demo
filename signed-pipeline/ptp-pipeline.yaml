@@ -1,8 +1,6 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  annotations:
-    cosign.sigstore.dev/imageRef: icr.io/gitsecure/build-and-deploy-pipeline:v1
   name: build-and-deploy-pipeline
 spec:
   params:

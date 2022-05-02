@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   annotations:
-    cosign.sigstore.dev/imageRef: icr.io/gitsecure/kaniko:v1
+    cosign.sigstore.dev/imageRef: ghcr.io/tap8stry/kaniko:v1
     tekton.dev/categories: Image Build
     tekton.dev/pipelines.minVersion: 0.12.1
     tekton.dev/tags: image-build
@@ -44,7 +44,7 @@ spec:
     env:
     - name: DOCKER_CONFIG
       value: /kaniko/.docker/
-    image: icr.io/gitsecure/executor:v1.5.1
+    image: ghcr.io/tap8stry/executor:v1.5.1
     name: build-and-push
     securityContext:
       runAsUser: 0
@@ -57,12 +57,12 @@ spec:
     - -terminationMessagePath=$(params.CONTEXT)/image-digested
     command:
     - /ko-app/imagedigestexporter
-    image: icr.io/gitsecure/imagedigestexporter:v0.16.2
+    image: ghcr.io/tap8stry/imagedigestexporter:v0.16.2
     name: write-digest
     securityContext:
       runAsUser: 0
     workingDir: $(workspaces.source.path)
-  - image: icr.io/gitsecure/jq
+  - image: ghcr.io/tap8stry/jq
     name: digest-to-results
     script: |
       cat $(params.CONTEXT)/image-digested | jq '.[0].value' -rj | tee /tekton/results/IMAGE-DIGEST
@@ -70,7 +70,7 @@ spec:
       echo $(params.IMAGE) > /tekton/results/IMAGE_URL
     workingDir: $(workspaces.source.path)
   - name: cosign-sign-img
-    image: icr.io/gitsecure/cosign:1.7.2
+    image: ghcr.io/tap8stry/cosign:1.7.2
     imagePullPolicy: Always
     command: ["/bin/sh", "-c"]
     workingDir: $(workspaces.source.path)

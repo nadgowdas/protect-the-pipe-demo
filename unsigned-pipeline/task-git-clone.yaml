@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   annotations:
-    cosign.sigstore.dev/imageRef: icr.io/gitsecure/git-clone:v1
+    cosign.sigstore.dev/imageRef: ghcr.io/tap8stry/git-init:v0.21.0
     tekton.dev/categories: Git
     tekton.dev/displayName: git clone
     tekton.dev/pipelines.minVersion: 0.21.0
@@ -125,7 +125,7 @@ spec:
       value: $(workspaces.basic-auth.bound)
     - name: WORKSPACE_BASIC_AUTH_DIRECTORY_PATH
       value: $(workspaces.basic-auth.path)
-    image: icr.io/gitsecure/git-init:v0.21.0
+    image: ghcr.io/tap8stry/git-init:v0.21.0
     name: clone
     script: |
       #!/usr/bin/env sh

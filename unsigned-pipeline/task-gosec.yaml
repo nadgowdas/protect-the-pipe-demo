@@ -35,5 +35,5 @@ spec:
     command:
     - /bin/sh
     - -c
-    image: icr.io/gitsecure/gosec:2.9.1
+    image: ghcr.io/tap8stry/gosec:2.9.1
     name: go-sec
