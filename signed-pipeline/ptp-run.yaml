@@ -18,11 +18,6 @@ spec:
   serviceAccountName: pipeline-account
   workspaces:
   - name: git-source
-    volumeClaimTemplate:
-      spec:
-        accessModes:
-          - ReadWriteMany
-        resources:
-          requests:
-            storage: 1Gi
-              
+    persistentVolumeClaim:
+      claimName: ptp-demo-pvc
+    subPath: code
