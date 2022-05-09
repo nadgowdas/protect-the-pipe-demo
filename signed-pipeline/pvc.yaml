@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ptp-demo-pvc
+  labels:
+    billingType: "monthly"
+    region: us-south
+    zone: dal13
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ibmc-file-silver
+
