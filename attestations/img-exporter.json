@@ -1,0 +1,55 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.3",
+  "serialNumber": "urn:uuid:956ddf12-7ecc-4a8d-8d4c-c99aef828e7d",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2022-05-09T08:10:10-04:00",
+    "tools": [
+      {
+        "vendor": "anchore",
+        "name": "syft",
+        "version": "0.34.0"
+      }
+    ],
+    "component": {
+      "type": "container",
+      "name": "ghcr.io/tap8stry/imagedigestexporter@sha256:542d437868a0168f0771d840233110fbf860b210b0e9becce5d75628c694b958",
+      "version": "sha256:cc94035c7604775cffea6845bc2445a60c836c0dd80afb65b3a153b01cd14f65"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "base-files",
+      "version": "9.9+deb9u13",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL"
+          }
+        }
+      ],
+      "purl": "pkg:deb/debian/base-files@9.9+deb9u13?arch=amd64"
+    },
+    {
+      "type": "library",
+      "name": "netbase",
+      "version": "5.4",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2"
+          }
+        }
+      ],
+      "purl": "pkg:deb/debian/netbase@5.4?arch=all"
+    },
+    {
+      "type": "library",
+      "name": "tzdata",
+      "version": "2020a-0+deb9u1",
+      "purl": "pkg:deb/debian/tzdata@2020a-0+deb9u1?arch=all"
+    }
+  ]
+}
