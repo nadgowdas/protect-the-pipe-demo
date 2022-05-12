@@ -1,0 +1,335 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.3",
+  "serialNumber": "urn:uuid:464bce50-21e6-4495-b184-a047ea6475f3",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2022-05-09T08:32:13-04:00",
+    "tools": [
+      {
+        "vendor": "anchore",
+        "name": "syft",
+        "version": "0.34.0"
+      }
+    ],
+    "component": {
+      "type": "container",
+      "name": "ghcr.io/tap8stry/executor@sha256:c812530c2ea981d3316c7544b180289abfbd9adf1dde6f1345692b8fb0a65cb0",
+      "version": "sha256:106f8b8c09417718f41c2b76a6e2e1342f4bd32de6da6aaa0e4b201afb21122f"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "github.com/Azure/azure-sdk-for-go",
+      "version": "v46.4.0+incompatible",
+      "purl": "pkg:golang/github.com/Azure/azure-sdk-for-go@v46.4.0+incompatible"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/autorest",
+      "version": "v0.11.8",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/autorest@v0.11.8"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/autorest/adal",
+      "version": "v0.9.4",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/autorest/adal@v0.9.4"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/autorest/azure/auth",
+      "version": "v0.5.2",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/autorest/azure/auth@v0.5.2"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/autorest/azure/cli",
+      "version": "v0.4.1",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/autorest/azure/cli@v0.4.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/autorest/date",
+      "version": "v0.3.0",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/autorest/date@v0.3.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/autorest/date",
+      "version": "v0.3.0",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/autorest/date@v0.3.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/logger",
+      "version": "v0.2.0",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/logger@v0.2.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/tracing",
+      "version": "v0.6.0",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/tracing@v0.6.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/Azure/go-autorest/tracing",
+      "version": "v0.6.0",
+      "purl": "pkg:golang/github.com/Azure/go-autorest/tracing@v0.6.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/aws/aws-sdk-go",
+      "version": "v1.36.0",
+      "purl": "pkg:golang/github.com/aws/aws-sdk-go@v1.36.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/coreos/etcd",
+      "version": "v3.3.13+incompatible",
+      "purl": "pkg:golang/github.com/coreos/etcd@v3.3.13+incompatible"
+    },
+    {
+      "type": "library",
+      "name": "github.com/davecgh/go-spew",
+      "version": "v1.1.1",
+      "purl": "pkg:golang/github.com/davecgh/go-spew@v1.1.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/dgrijalva/jwt-go",
+      "version": "v3.2.0+incompatible",
+      "purl": "pkg:golang/github.com/dgrijalva/jwt-go@v3.2.0+incompatible"
+    },
+    {
+      "type": "library",
+      "name": "github.com/dimchansky/utfbom",
+      "version": "v1.1.0",
+      "purl": "pkg:golang/github.com/dimchansky/utfbom@v1.1.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/docker/docker-credential-helpers",
+      "version": "v0.6.3",
+      "purl": "pkg:golang/github.com/docker/docker-credential-helpers@v0.6.3"
+    },
+    {
+      "type": "library",
+      "name": "github.com/docker/docker-credential-helpers",
+      "version": "v0.6.3",
+      "purl": "pkg:golang/github.com/docker/docker-credential-helpers@v0.6.3"
+    },
+    {
+      "type": "library",
+      "name": "github.com/docker/docker-credential-helpers",
+      "version": "v0.6.3",
+      "purl": "pkg:golang/github.com/docker/docker-credential-helpers@v0.6.3"
+    },
+    {
+      "type": "library",
+      "name": "github.com/fsnotify/fsnotify",
+      "version": "v1.4.9",
+      "purl": "pkg:golang/github.com/fsnotify/fsnotify@v1.4.9"
+    },
+    {
+      "type": "library",
+      "name": "github.com/fsnotify/fsnotify",
+      "version": "v1.4.9",
+      "purl": "pkg:golang/github.com/fsnotify/fsnotify@v1.4.9"
+    },
+    {
+      "type": "library",
+      "name": "github.com/googleapis/gax-go/v2",
+      "version": "v2.0.5",
+      "purl": "pkg:golang/github.com/googleapis/gax-go/v2@v2.0.5"
+    },
+    {
+      "type": "library",
+      "name": "github.com/hashicorp/go-immutable-radix",
+      "version": "v1.0.0",
+      "purl": "pkg:golang/github.com/hashicorp/go-immutable-radix@v1.0.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/hashicorp/golang-lru",
+      "version": "v0.5.1",
+      "purl": "pkg:golang/github.com/hashicorp/golang-lru@v0.5.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/hashicorp/hcl",
+      "version": "v1.0.0",
+      "purl": "pkg:golang/github.com/hashicorp/hcl@v1.0.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/jmespath/go-jmespath",
+      "version": "v0.4.0",
+      "purl": "pkg:golang/github.com/jmespath/go-jmespath@v0.4.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/magiconair/properties",
+      "version": "v1.8.4",
+      "purl": "pkg:golang/github.com/magiconair/properties@v1.8.4"
+    },
+    {
+      "type": "library",
+      "name": "github.com/mitchellh/go-homedir",
+      "version": "v1.1.0",
+      "purl": "pkg:golang/github.com/mitchellh/go-homedir@v1.1.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/mitchellh/go-homedir",
+      "version": "v1.1.0",
+      "purl": "pkg:golang/github.com/mitchellh/go-homedir@v1.1.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/mitchellh/go-homedir",
+      "version": "v1.1.0",
+      "purl": "pkg:golang/github.com/mitchellh/go-homedir@v1.1.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/mitchellh/mapstructure",
+      "version": "v1.3.3",
+      "purl": "pkg:golang/github.com/mitchellh/mapstructure@v1.3.3"
+    },
+    {
+      "type": "library",
+      "name": "github.com/modern-go/concurrent",
+      "version": "v0.0.0-20180306012644-bacd9c7ef1dd",
+      "purl": "pkg:golang/github.com/modern-go/concurrent@v0.0.0-20180306012644-bacd9c7ef1dd"
+    },
+    {
+      "type": "library",
+      "name": "github.com/modern-go/reflect2",
+      "version": "v1.0.1",
+      "purl": "pkg:golang/github.com/modern-go/reflect2@v1.0.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/pelletier/go-toml",
+      "version": "v1.8.1",
+      "purl": "pkg:golang/github.com/pelletier/go-toml@v1.8.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/pkg/errors",
+      "version": "v0.9.1",
+      "purl": "pkg:golang/github.com/pkg/errors@v0.9.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/pkg/errors",
+      "version": "v0.9.1",
+      "purl": "pkg:golang/github.com/pkg/errors@v0.9.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/sirupsen/logrus",
+      "version": "v1.4.2",
+      "purl": "pkg:golang/github.com/sirupsen/logrus@v1.4.2"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/afero",
+      "version": "v1.4.1",
+      "purl": "pkg:golang/github.com/spf13/afero@v1.4.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/cast",
+      "version": "v1.3.1",
+      "purl": "pkg:golang/github.com/spf13/cast@v1.3.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/cobra",
+      "version": "v1.0.0",
+      "purl": "pkg:golang/github.com/spf13/cobra@v1.0.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/cobra",
+      "version": "v1.0.0",
+      "purl": "pkg:golang/github.com/spf13/cobra@v1.0.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/jwalterweatherman",
+      "version": "v1.1.0",
+      "purl": "pkg:golang/github.com/spf13/jwalterweatherman@v1.1.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/pflag",
+      "version": "v1.0.5",
+      "purl": "pkg:golang/github.com/spf13/pflag@v1.0.5"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/pflag",
+      "version": "v1.0.5",
+      "purl": "pkg:golang/github.com/spf13/pflag@v1.0.5"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/viper",
+      "version": "v1.7.1",
+      "purl": "pkg:golang/github.com/spf13/viper@v1.7.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/subosito/gotenv",
+      "version": "v1.2.0",
+      "purl": "pkg:golang/github.com/subosito/gotenv@v1.2.0"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/crypto",
+      "version": "v0.0.0-20201002170205-7f63de1d35b0",
+      "purl": "pkg:golang/golang.org/x/crypto@v0.0.0-20201002170205-7f63de1d35b0"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/crypto",
+      "version": "v0.0.0-20201002170205-7f63de1d35b0",
+      "purl": "pkg:golang/golang.org/x/crypto@v0.0.0-20201002170205-7f63de1d35b0"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/sys",
+      "version": "v0.0.0-20200930185726-fdedc70b468f",
+      "purl": "pkg:golang/golang.org/x/sys@v0.0.0-20200930185726-fdedc70b468f"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/sys",
+      "version": "v0.0.0-20201005172224-997123666555",
+      "purl": "pkg:golang/golang.org/x/sys@v0.0.0-20201005172224-997123666555"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/text",
+      "version": "v0.3.3",
+      "purl": "pkg:golang/golang.org/x/text@v0.3.3"
+    },
+    {
+      "type": "library",
+      "name": "gopkg.in/ini.v1",
+      "version": "v1.62.0",
+      "purl": "pkg:golang/gopkg.in/ini.v1@v1.62.0"
+    },
+    {
+      "type": "library",
+      "name": "gopkg.in/yaml.v2",
+      "version": "v2.3.0",
+      "purl": "pkg:golang/gopkg.in/yaml.v2@v2.3.0"
+    }
+  ]
+}

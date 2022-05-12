@@ -1,0 +1,483 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.3",
+  "serialNumber": "urn:uuid:0c2bf5d3-47d0-4491-846a-004349ba2c8d",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2022-05-09T08:04:59-04:00",
+    "tools": [
+      {
+        "vendor": "anchore",
+        "name": "syft",
+        "version": "0.34.0"
+      }
+    ],
+    "component": {
+      "type": "container",
+      "name": "ghcr.io/tap8stry/git-init@sha256:322e3502c1e6fba5f1869efb55cfd998a3679e073840d33eb0e3c482b5d5609b",
+      "version": "sha256:5fe577767eba4cca2fe7594f6df94ca2b0f639a2ee8794f99f2ac49b81b5d419"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "alpine-baselayout",
+      "version": "3.2.0-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/alpine-baselayout@3.2.0-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "alpine-keys",
+      "version": "2.1-r2",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/alpine-keys@2.1-r2?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "apk-tools",
+      "version": "2.10.5-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL2"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/apk-tools@2.10.5-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "busybox",
+      "version": "1.31.1-r9",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/busybox@1.31.1-r9?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ca-certificates",
+      "version": "20191127-r2",
+      "licenses": [
+        {
+          "license": {
+            "name": "MPL-2.0"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ca-certificates@20191127-r2?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ca-certificates-cacert",
+      "version": "20191127-r2",
+      "licenses": [
+        {
+          "license": {
+            "name": "MPL-2.0"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL-2.0-or-later"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ca-certificates-cacert@20191127-r2?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "expat",
+      "version": "2.2.9-r1",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/expat@2.2.9-r1?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "git",
+      "version": "2.24.3-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-or-later"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/git@2.24.3-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "git-lfs",
+      "version": "2.9.2-r1",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/git-lfs@2.9.2-r1?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "github.com/davecgh/go-spew",
+      "version": "v1.1.1",
+      "purl": "pkg:golang/github.com/davecgh/go-spew@v1.1.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/git-lfs/gitobj",
+      "version": "v1.4.1",
+      "purl": "pkg:golang/github.com/git-lfs/gitobj@v1.4.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/git-lfs/go-netrc",
+      "version": "v0.0.0-20180525200031-e0e9ca483a18",
+      "purl": "pkg:golang/github.com/git-lfs/go-netrc@v0.0.0-20180525200031-e0e9ca483a18"
+    },
+    {
+      "type": "library",
+      "name": "github.com/git-lfs/go-ntlm",
+      "version": "v0.0.0-20190401175752-c5056e7fa066",
+      "purl": "pkg:golang/github.com/git-lfs/go-ntlm@v0.0.0-20190401175752-c5056e7fa066"
+    },
+    {
+      "type": "library",
+      "name": "github.com/git-lfs/wildmatch",
+      "version": "v1.0.4",
+      "purl": "pkg:golang/github.com/git-lfs/wildmatch@v1.0.4"
+    },
+    {
+      "type": "library",
+      "name": "github.com/mattn/go-isatty",
+      "version": "v0.0.4",
+      "purl": "pkg:golang/github.com/mattn/go-isatty@v0.0.4"
+    },
+    {
+      "type": "library",
+      "name": "github.com/olekukonko/ts",
+      "version": "v0.0.0-20171002115256-78ecb04241c0",
+      "purl": "pkg:golang/github.com/olekukonko/ts@v0.0.0-20171002115256-78ecb04241c0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/pkg/errors",
+      "version": "v0.0.0-20170505043639-c605e284fe17",
+      "purl": "pkg:golang/github.com/pkg/errors@v0.0.0-20170505043639-c605e284fe17"
+    },
+    {
+      "type": "library",
+      "name": "github.com/pmezard/go-difflib",
+      "version": "v1.0.0",
+      "purl": "pkg:golang/github.com/pmezard/go-difflib@v1.0.0"
+    },
+    {
+      "type": "library",
+      "name": "github.com/rubyist/tracerx",
+      "version": "v0.0.0-20170927163412-787959303086",
+      "purl": "pkg:golang/github.com/rubyist/tracerx@v0.0.0-20170927163412-787959303086"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/cobra",
+      "version": "v0.0.3",
+      "purl": "pkg:golang/github.com/spf13/cobra@v0.0.3"
+    },
+    {
+      "type": "library",
+      "name": "github.com/spf13/pflag",
+      "version": "v1.0.3",
+      "purl": "pkg:golang/github.com/spf13/pflag@v1.0.3"
+    },
+    {
+      "type": "library",
+      "name": "github.com/ssgelm/cookiejarparser",
+      "version": "v1.0.1",
+      "purl": "pkg:golang/github.com/ssgelm/cookiejarparser@v1.0.1"
+    },
+    {
+      "type": "library",
+      "name": "github.com/stretchr/testify",
+      "version": "v1.2.2",
+      "purl": "pkg:golang/github.com/stretchr/testify@v1.2.2"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/net",
+      "version": "v0.0.0-20191027093000-83d349e8ac1a",
+      "purl": "pkg:golang/golang.org/x/net@v0.0.0-20191027093000-83d349e8ac1a"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/sync",
+      "version": "v0.0.0-20181221193216-37e7f081c4d4",
+      "purl": "pkg:golang/golang.org/x/sync@v0.0.0-20181221193216-37e7f081c4d4"
+    },
+    {
+      "type": "library",
+      "name": "golang.org/x/text",
+      "version": "v0.3.0",
+      "purl": "pkg:golang/golang.org/x/text@v0.3.0"
+    },
+    {
+      "type": "library",
+      "name": "libc-utils",
+      "version": "0.7.2-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libc-utils@0.7.2-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libcrypto1.1",
+      "version": "1.1.1i-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "OpenSSL"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libcrypto1.1@1.1.1i-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libcurl",
+      "version": "7.67.0-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libcurl@7.67.0-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libedit",
+      "version": "20191211.3.1-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libedit@20191211.3.1-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libssl1.1",
+      "version": "1.1.1i-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "OpenSSL"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libssl1.1@1.1.1i-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libtls-standalone",
+      "version": "2.9.1-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libtls-standalone@2.9.1-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "musl",
+      "version": "1.1.24-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/musl@1.1.24-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "musl-utils",
+      "version": "1.1.24-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL2+"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/musl-utils@1.1.24-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ncurses-libs",
+      "version": "6.1_p20200118-r4",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ncurses-libs@6.1_p20200118-r4?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ncurses-terminfo-base",
+      "version": "6.1_p20200118-r4",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ncurses-terminfo-base@6.1_p20200118-r4?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "nghttp2-libs",
+      "version": "1.40.0-r1",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/nghttp2-libs@1.40.0-r1?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "openssh-client",
+      "version": "8.1_p1-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/openssh-client@8.1_p1-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "openssh-keygen",
+      "version": "8.1_p1-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/openssh-keygen@8.1_p1-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "pcre2",
+      "version": "10.34-r1",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/pcre2@10.34-r1?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "scanelf",
+      "version": "1.2.4-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/scanelf@1.2.4-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ssl_client",
+      "version": "1.31.1-r9",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ssl_client@1.31.1-r9?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "zlib",
+      "version": "1.2.11-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "Zlib"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/zlib@1.2.11-r3?arch=x86_64"
+    }
+  ]
+}

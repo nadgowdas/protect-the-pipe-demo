@@ -1,0 +1,292 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.3",
+  "serialNumber": "urn:uuid:2e4b7b35-2db8-44cf-bc91-e68ece43e784",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2022-05-09T08:24:51-04:00",
+    "tools": [
+      {
+        "vendor": "anchore",
+        "name": "syft",
+        "version": "0.34.0"
+      }
+    ],
+    "component": {
+      "type": "container",
+      "name": "ghcr.io/tap8stry/bash@sha256:b69c5fe80a41b5c9053db41c81074dd894bbb47bf292e5763d053440eddaafdc",
+      "version": "sha256:a5088b7e686a0c0fa725dad44122e2083b1280a1c63a86c9fb4cf41540f2760d"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": ".bash-rundeps",
+      "version": "20210827.175520",
+      "licenses": [
+        {
+          "license": {}
+        }
+      ],
+      "purl": "pkg:alpine/.bash-rundeps@20210827.175520?arch=noarch"
+    },
+    {
+      "type": "library",
+      "name": "alpine-baselayout",
+      "version": "3.2.0-r16",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/alpine-baselayout@3.2.0-r16?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "alpine-keys",
+      "version": "2.3-r1",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/alpine-keys@2.3-r1?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "apk-tools",
+      "version": "2.12.7-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/apk-tools@2.12.7-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "busybox",
+      "version": "1.33.1-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/busybox@1.33.1-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ca-certificates-bundle",
+      "version": "20191127-r5",
+      "licenses": [
+        {
+          "license": {
+            "name": "MPL-2.0"
+          }
+        },
+        {
+          "license": {
+            "name": "AND"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ca-certificates-bundle@20191127-r5?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libc-utils",
+      "version": "0.7.2-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-2-Clause"
+          }
+        },
+        {
+          "license": {
+            "name": "AND"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libc-utils@0.7.2-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libcrypto1.1",
+      "version": "1.1.1l-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "OpenSSL"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libcrypto1.1@1.1.1l-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libretls",
+      "version": "3.3.3p1-r2",
+      "licenses": [
+        {
+          "license": {
+            "name": "ISC"
+          }
+        },
+        {
+          "license": {
+            "name": "AND"
+          }
+        },
+        {
+          "license": {
+            "name": "(BSD-3-Clause"
+          }
+        },
+        {
+          "license": {
+            "name": "OR"
+          }
+        },
+        {
+          "license": {
+            "name": "MIT)"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libretls@3.3.3p1-r2?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "libssl1.1",
+      "version": "1.1.1l-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "OpenSSL"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/libssl1.1@1.1.1l-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "musl",
+      "version": "1.2.2-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/musl@1.2.2-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "musl-utils",
+      "version": "1.2.2-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        },
+        {
+          "license": {
+            "name": "BSD"
+          }
+        },
+        {
+          "license": {
+            "name": "GPL2+"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/musl-utils@1.2.2-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ncurses-libs",
+      "version": "6.2_p20210612-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ncurses-libs@6.2_p20210612-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ncurses-terminfo-base",
+      "version": "6.2_p20210612-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ncurses-terminfo-base@6.2_p20210612-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "scanelf",
+      "version": "1.3.2-r0",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/scanelf@1.3.2-r0?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "ssl_client",
+      "version": "1.33.1-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "GPL-2.0-only"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/ssl_client@1.33.1-r3?arch=x86_64"
+    },
+    {
+      "type": "library",
+      "name": "zlib",
+      "version": "1.2.11-r3",
+      "licenses": [
+        {
+          "license": {
+            "name": "Zlib"
+          }
+        }
+      ],
+      "purl": "pkg:alpine/zlib@1.2.11-r3?arch=x86_64"
+    }
+  ]
+}
