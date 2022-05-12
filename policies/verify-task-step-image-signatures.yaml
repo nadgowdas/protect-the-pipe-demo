@@ -1,0 +1,38 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: signed-task-image
+spec:
+  validationFailureAction: enforce
+  rules:
+  - name: check-signature
+    match:
+      resources:
+        kinds:
+        - tekton.dev/v1beta1/TaskRun.status
+    imageExtractors:
+      TaskRun:
+        - name: "taskrunstatus"
+          path: "/status/taskSpec/steps/*"
+          value: "image"
+          key: "name"
+    verifyImages:
+    - imageReferences:
+      - "*"
+      required: false
+      attestors:
+      - entries:
+        - keys: 
+            publicKeys: |-
+              -----BEGIN PUBLIC KEY-----
+              MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIzNgvCdrKDPPyWLiNO+RrAqP5UxS
+              zcnmHbXOePqtDTzzyCqUf6iRDZwODpiadf7QGdS5oCiGuYUZzmAImHIOiQ==
+              -----END PUBLIC KEY-----
+      attestations:
+      - predicateType: https://cyclonedx.org/BOM
+        conditions:
+          - all:
+            - key: "{{ vulnerabilities[].ratings[?score >= `8.0`][] | length(@) }}"
+              operator: Equals
+              value: 0
+      

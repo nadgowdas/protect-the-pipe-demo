@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-pipeline-run
+spec:
+  validationFailureAction: enforce
+  background: true
+  rules:
+  - name: require-bundle
+    match:
+      resources:
+        kinds:
+        - PipelineRun
+    validate:
+      message: "a bundle is required"
+      pattern:
+        spec:
+          pipelineRef:
+            bundle: "?*"
