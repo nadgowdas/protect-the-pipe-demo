@@ -22,18 +22,4 @@ spec:
       pattern:
         metadata:
           namespace: "!default"
-  - name: validate-pipeline-run
-    match:
-      resources:
-        kinds:
-        - PipelineRun
-    preconditions:
-      all:
-      - key: "{{ request.operation }}"
-        operator: Equals
-        value: CREATE
-    validate:
-      message: "A PipelineRun must be executed in a namespace prefixed with the PipelineRun name"
-      pattern:
-        metadata:
-          namespace: "{{request.object.metadata.name}}-*"
+

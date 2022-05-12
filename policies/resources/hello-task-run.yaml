@@ -5,3 +5,4 @@ metadata:
 spec:
   taskRef:
     name: hello
+    bundle: ghcr.io/jimbugwadia/tkn-bundle:v1

@@ -5,3 +5,4 @@ metadata:
 spec:
   pipelineRef:
     name: hello-goodbye 
+    bundle: ghcr.io/jimbugwadia/tkn-bundle:v1

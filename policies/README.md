@@ -1,26 +1,31 @@
 # Policies
-## For Pipeline authors
 
-1. Require a namespace for a pipeline
+## Dependencies
 
-2. Require ClusterTask 
+Install the latest Kyverno using:
 
-3. Add `securityContext` to ClusterTask
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kyverno/kyverno/main/config/install.yaml
+```
 
-3. Generate a policy to generate the pipeline when a new "run" namespace is created
+Install Tekton pipelines using:
 
-## For Pipeline users
+```
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+```
 
-1. Block running a bare Task
+## Policies
 
-2. Require namespace for a PipelineRun 
+1. **Block TaskRun**: enforces that only the Tekton controller can create TaskRun instances. Users should create a PipelineRun.
 
-3. Inject a default securityContext in a Task (or a PipelineRun podTemplate)
+2. **Require Namespace**: PipelineRun resources should be created in a namespace for isolation and security.
 
-4. Generate Pipeline when a new namespace is created
+3. **Require bundles**: Bundles are required for secure pipelines. (NOTE: add task check)
 
-5. Require all images are signed
+4. **Verify Pipeline bundle signatures**: All pipeline bundles need to be signed. Pipelines should refer to bundles via digest. Bundles should contain the required in-toto attestations.
 
-6. Required all pipelines run YAML manifests are signed
+5. **Verify Task bundles signatures**: All task bundles need to be signed. Tasks should refer to bundles via digest. Bundles should contain the required in-toto attestations.
 
+6. **Verify task.step images**: All task step images need to be signed. Steps should refer to images via digest.
 
+7. **Check container security context**: ??
