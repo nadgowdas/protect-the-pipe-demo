@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: block-task-runs
+  annotations:
+    policies.kyverno.io/description: >-
+      TaskRun resources should not be directly created by users. 
+spec:
+  validationFailureAction: enforce
+  background: false
+  rules:
+  - name: check-user
+    match:
+      any:
+      - resources:
+          kinds:
+            - TaskRun
+    exclude:
+      any:
+      - subjects:
+        - kind: User 
+          name: "system:serviceaccount:tekton-pipelines:tekton-pipelines-controller"
+    preconditions:
+      all:
+      - key: "{{ request.operation }}"
+        operator: Equals
+        value: CREATE
+    validate:
+      message: Creating a TaskRun is not allowed.
+      deny: {}
