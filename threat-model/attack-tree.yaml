@@ -35,12 +35,18 @@ mitigations:
 - signTask: Require signed Task bundles
   from:
   - attackTask
+- blockTaskRun: Block users from creating a TaskRun
+  from:
+  - attackTask
 - signImages: Require signed images
   from:
   - attackImage
-- requireScans: Require recent vulnerability scans as in-toto attestations
+- requireScans: Require vulnerability scan report as an in-toto attestation
   from:
   - exploitVulnerability
+- blockImagesWithVulnerabilities: Block images with high severity vulnerabilities
+  from:
+  - requireScans
 - requireNamespace: Require namespaces
   from:
   - misconfiguration
