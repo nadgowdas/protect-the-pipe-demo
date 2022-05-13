@@ -6,70 +6,78 @@ This is a sample tekton based application build pipepline.
 
 Follow these instructions to setup this pipeline and run it against your sample application repository.
 In this example, we are going to build and deploy [tekton-tutorial-openshift](https://github.com/IBM/tekton-tutorial-openshift) application.
+
 You can use `minikube` to run your tekton pipeline and deploy this application.
 
 ## Getting ready
 
 1. Make sure you have `kubectl` configured with access to some kubernetes cluster
-2. You have access to some container registry and update registry credentials in `registry-secret.yaml`
 
-```bash
-   # replace <oci-registry> with your container registry url
-   # replace <api-key> with your api key
-   # replace <api-user> with your username
-   # replace <email-address> with your email
+2. Install Tekton:
 
-   kubectl create secret --dry-run=true -o yaml docker-registry registry-key --docker-server=<oci-registry> --docker-password=<api-key> --docker-username=<api-user> --docker-email=<email-address>
+```sh
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
 ```
 
-Copy `.dockerconfigjson` value from the output to `registry-secret.yaml` 
+3. Install Kyverno
 
-## Verify your pipeline
-
-Before we start using our pipeline, we should always ensure the pipeline definitions are trusted. In this example, we have signed all the pipeline and task definitions, as well as all the images used in the tasks. We have used [sigstore/cosign](https://github.com/sigstore/cosign) to sign these resources, as annotated respectively.
-
-```yaml
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  annotations:
-    cosign.sigstore.dev/imageRef: icr.io/gitsecure/git-clone:v1
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kyverno/kyverno/main/config/install.yaml
 ```
 
-You can verify these definitions using [tapstry-pipelines](https://github.com/tap8stry/tapestry-pipelines) tool using the provided public key.
+3. Apply policies
 
-```bash
-# Assuming you have cloned this repo locally and `chdir` to `sample-pipeline` directory
-% tapestry-pipelines tkn verify -d . -i icr.io/gitsecure -t v1 -key ssf-verify.pub
+```sh
+kubectl apply -f policies/secure
+kubectl apply -f policies/sign
 ```
 
-## Setup Pipeline
+## Policies 
 
-```bash
-# Setup access secrets
-% kubectl create -f registry-secret.yaml
-% kubectl create -f pipeline-account.yaml
+1. **Block TaskRun**: enforces that only the Tekton controller can create TaskRun instances. Users should create a PipelineRun.
 
-# Setup core tasks
-% kubectl create -f task-git-clone.yaml
-% kubectl create -f task-build-push-image.yaml
-% kubectl create -f task-deploy.yaml
-% kubectl create -f task-syft-bom-generation.yaml
-% kubectl create -f task-gyrpe-scan.yaml
+2. **Require Namespace**: PipelineRun resources should be created in a namespace for isolation and security.
 
-# Setup pipeline
-% kubectl create -f ptp-pipeline.yaml
+3. **Generate Namespace Defaults**: Generates a default network policy and adds a `createdBy` label to each namespace
+
+4. **Require bundle**: Bundles are required for secure pipelines. Checks PipelineRun and TaskRun for bundles.
+
+5. **Verify Pipeline bundle signatures**: All pipeline bundles need to be signed. Pipelines should refer to bundles via digest. Bundles should contain the required in-toto attestations.
+
+6. **Verify Task bundles signatures**: All task bundles need to be signed. Tasks should refer to bundles via digest. Bundles should contain the required in-toto attestations.
+
+7. **Verify task.step images**: All task step images need to be signed. Steps should refer to images via digest. Images should have a vulnerability scan report.
+
+8. **Check container security context**: check container configuration for securityContext with required settings.
+
+## Usage
+
+1. Try running a TaskRun. It will be blocked:
+
+2. Try running the pipeline in the default namespace. It will be blocked.
+
+3. Create a new namespace `run`. Kyverno will automatically add required defaults.
+
+4. Run the signed pipeline:
+
+```sh
+kubectl -n run apply -f signed-pipeline/init/
 ```
 
-## Run Pipeline
+5. Check the pods for status:
 
-In this example, we are using [tekton-tutorial-openshift](https://github.com/nadgowdas/tekton-tutorial) application sample application. If you want to use other application, make sure to make corresponding changes to `ssf-run.yaml`. You may also have to change params to `build` and `deploy` tasks to reflect correct location for `Dockerfile` context and deployment file resp.
-
-```bash
-% kubectl create -f ptp-run.yaml
+```sh
+kubectl -n run get pods
 ```
 
-## Observing
+6. Cleanup
+
+```sh
+kubectl -n run delete pipelineruns
+```
+
+
+## Tekton Dashboard
 
 To observe execution of the pipeline, consider setting up [tektoncd/dashboard](https://github.com/tektoncd/dashboard). 
 The SBOM and vulnerability-report are accessible only in the task logs. 

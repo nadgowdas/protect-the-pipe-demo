@@ -12,13 +12,13 @@ facts:
   - task
 
 attacks:
-- attackPipeline: Attacker runs an unknown Pipeline
+- attackPipeline: Attacker runs an malicious Pipeline
   from:
   - pipeline
-- attackTask: Attacker runs an unknown Task
+- attackTask: Attacker runs an maliciousTask
   from:
   - task
-- attackImage: Attacker runs an unknown image
+- attackImage: Attacker runs an malicious image
   from:
   - image
 - exploitVulnerability: Attacker exploits an image vulnerability
