@@ -1,0 +1,31 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: signed-pipeline-bundle
+spec:
+  validationFailureAction: enforce
+  rules:
+  - name: check-signature
+    match:
+      resources:
+        kinds:
+        - PipelineRun
+    imageExtractors:
+      PipelineRun:
+        - name: "pipelineruns"
+          path: /spec/pipelineRef
+          value: "bundle"
+          key: "name"
+    verifyImages:
+    - imageReferences:
+      - "*"
+      required: false
+      attestors:
+      - entries:
+        - keys: 
+            publicKeys: |-
+              -----BEGIN PUBLIC KEY-----
+              MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEahmSvGFmxMJABilV1usgsw6ImcQ/
+              gDaxw57Sq+uNGHW8Q3zUSx46PuRqdTI+4qE3Ng2oFZgLMpFN/qMrP0MQQg==
+              -----END PUBLIC KEY-----
+
