@@ -1,0 +1,176 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-networkpolicy
+spec:
+  rules:
+  - name: default-deny
+    match:
+      resources:
+        kinds:
+        - Namespace
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: NetworkPolicy
+      name: default-deny
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      data:
+        spec:
+          podSelector: {}
+          policyTypes:
+          - Ingress
+          - Egress
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-defaults  
+spec:
+  rules:
+  - name: sync-image-pull-secret
+    match:
+      resources:
+        kinds:
+        - Namespace
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: Secret
+      name: img-registry-secret
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      clone:
+        namespace: common
+        name: img-registry-secret
+  - name: sync-cosign-secret
+    match:
+      resources:
+        kinds:
+        - Namespace
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: Secret
+      name: cosign-private-key
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      clone:
+        namespace: common
+        name: cosign-private-key
+  - name: sync-service-account
+    match:
+      resources:
+        kinds:
+        - Namespace
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: ServiceAccount
+      name: pipeline-account
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      clone:
+        namespace: common
+        name: pipeline-account
+  - name: sync-role
+    match:
+      resources:
+        kinds:
+        - Namespace
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: Role
+      name: pipeline-role
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      clone:
+        namespace: common
+        name: pipeline-role
+  - name: sync-role-binding
+    match:
+      resources:
+        kinds:
+        - Namespace
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: RoleBinding
+      name: pipeline-role-binding
+      namespace: "{{request.object.metadata.name}}"
+      synchronize: true
+      clone:
+        namespace: common
+        name: pipeline-role-binding
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-api-secrets
+spec:
+  rules:
+  - name: sync-kubeapi-secret
+    match:
+      resources:
+        kinds:
+        - ServiceAccount
+        name: "pipeline-account"
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: Secret
+      name: kube-api-secret
+      namespace: "{{request.namespace}}"
+      synchronize: true
+      data:
+        metadata:
+          annotations:
+            kubernetes.io/service-account.name: pipeline-account
+        type: kubernetes.io/service-account-token
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-pvc
+spec:
+  rules:
+  - name: create-pvc
+    match:
+      resources:
+        kinds:
+        - Namespace
+    exclude:
+      resources:
+        namespaces:
+        - common
+    generate:
+      kind: PersistentVolumeClaim
+      name:  ptp-demo-pvc
+      namespace: "{{request.namespace}}"
+      synchronize: true
+      data:
+        spec:
+          accessModes:
+          - ReadWriteMany
+          resources:
+            requests:
+              storage: 5Gi
+          storageClassName: hostpath
+          volumeMode: Filesystem

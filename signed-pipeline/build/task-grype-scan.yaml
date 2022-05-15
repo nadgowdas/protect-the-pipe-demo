@@ -1,0 +1,61 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  annotations:
+    cosign.sigstore.dev/message: H4sIAAAAAAAA/wBYA6f8H4sIAAAAAAAA/+xV32/bNhD2s/6Km5qHBpssOVad1UWGYW1WBFvToMj2MhQFLR4lzhSp8U5uXPSPH/TLjeysAzZgQwHfi8Tjd9/pvjuK8Ub4WDkj0VPs07h4YqvSy6fnhVl8SBTPM1VQmhZJkiS5jW/jzJWVRyJt84iFj/IPZ7Ons3k6W8QsaB3lflthRJmw060ozWQymTSxizRtn+eLJ+0zOevWSZLMk0U6maVn8/n5YrZYzCfJPE2SdALJ5D+wmlj4SZJQ4XUlpBUyd++lOMARC6U+w9MXs3t+ISYq/St60s4ugXHNzk4lbuLNbIUsZsFaW7mEW0HroEQWUrBYBgBWlLiErtWb2lj0YqWN5m3b+IAqzBpYJbwoqXmLQCJlXlfcZtKlyBE8KvRoMwwABs52J/Ko/ipI6hyJDyJ27iZIidrwEsIkbHEjFnZ5bpBA4qrOoXQSQTkPXCBUukKj7f3PGVxRCx/TE6m94j1WzvP0d3L2MLHSBivBBbADYuexzTkigI7gXv6H+KOBKQDwSLXhhyQmFlwTOAW0VQzN2fwGKkekVwZhI0yNIDxGVGcZEn1UQpva36+9YzhkPizkHxQRABBjdYtlZQTjsoWj3XQvUR95c3Vz+fPV9eW7F5c//PKy3YLu25dw8rgbr+m4R6c9c6+J8DkNnB97gkdfxSttYyr6tVbwG4Qn42QhXFxAOAvh7bOmUbbHAhAyRHfwNfYepQeaMn+D6mL3XbtRPv1+z9cN62kfh1nhIPS1tdrme1o2xwmchZOOPOxD2pM3OOG7BxWe8h338Ezw30Hc+hXlF+G1GwE1EihXWxkGY61aeCfRyePP0Z+G8BaejQTEO82QDMUbwvHObKxr5spSWDn08H7nIoiyoFNe5M3/qMj8VLuYRfUtsd/GwmaF89jdSctkeja/N5WfLiqLfjx+AI+g+YdptW1a8uL1858u37x7/vr6x6uXoAk8/lFrj7I5AcIY9x5WtTZyrbnxSGTMGKTL1ugh8yjRshaGeu5huEe0Ow366Y4JM4/cxWycqUt85WrLtNyxlM36RnCxh/5Uose8SR8MDP2Z2N9sZroJH6i71XX/d80jj7lu9Iy6Dfi/76yjHe1oRzvav7c/AwAA//+DLCSuAA4AAAEAAP//lP7D/lgDAAA=
+    cosign.sigstore.dev/signature: MEUCIAjXX93326urEKjUXghVVMbYzfITsjO12pzRkJEkX3+eAiEAyB5xymq3wZdF+yjgoVEERjHbxBq72aznrjnmlNrPN7I=
+  name: grype-vulnerability-scan
+spec:
+  params:
+  - description: image reference
+    name: image-ref
+  - description: image digest
+    name: image-digest
+  - default: "0"
+    description: toggles debug mode for the pipeline
+    name: pipeline-debug
+  - default: ssf-vulnerability-report.json
+    description: filepath to store the vulnerability report
+    name: vulnerability-report-filepath
+  results:
+  - description: status of syft task, possible value are-success|failure
+    name: status
+  - description: filepath to store vulnerability report
+    name: vulnerability-report
+  stepTemplate:
+    env:
+    - name: PIPELINE_DEBUG
+      value: $(params.pipeline-debug)
+  steps:
+  - args:
+    - |
+      #!/bin/sh
+      if [ "$PIPELINE_DEBUG" == "1" ]; then
+        set -x +e
+      fi
+      imgRef=$(params.image-ref)@$(params.image-digest)
+      echo "running vulnerability scan on $imgRef"
+      grype $imgRef > vulnerability-report.txt
+      cat vulnerability-report.txt
+      okMsg="No vulnerabilities found"
+
+      if [ "$okMsg" == "$(cat vulnerability-report.txt)" ] ;then
+        exit 0
+      else
+        exit 1
+      fi
+    command:
+    - /bin/sh
+    - -c
+    env:
+    - name: DOCKER_CONFIG
+      value: /secrets
+    image: ghcr.io/tap8stry/anchore-grype:0.23
+    name: grype-scanner
+    volumeMounts:
+    - mountPath: /secrets
+      name: regcred
+  volumes:
+  - name: regcred
+    secret:
+      secretName: img-registry-secret
