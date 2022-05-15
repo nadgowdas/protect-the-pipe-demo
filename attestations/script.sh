@@ -14,8 +14,16 @@ IMAGES=(
 )
 
 NAMES=(
-'executor'
-'imagedigestexporter'
+'executor' 
+'imagedigestexporter' 
+'jq'
+'cosign'
+'git-init'
+'alpine'
+'k8s-kubectl'
+'syft'
+'bash'
+'anchore-grype'
 )
 
 
