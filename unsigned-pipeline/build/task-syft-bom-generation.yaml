@@ -1,0 +1,97 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  annotations:
+    cosign.sigstore.dev/imageRef: ghcr.io/tap8stry/syft-bom-generator:v1
+  name: syft-bom-generator
+spec:
+  params:
+  - description: image reference
+    name: image-ref
+  - description: image digest
+    name: image-digest
+  - default: "0"
+    description: toggles debug mode for the pipeline
+    name: pipeline-debug
+  - default: ssf-sbom.json
+    description: filepath to store the sbom artifacts
+    name: sbom-filepath
+  results:
+  - description: status of syft task, possible value are-success|failure
+    name: status
+  - description: filepath to store syft bom record
+    name: sbom-store
+  stepTemplate:
+    env:
+    - name: PIPELINE_DEBUG
+      value: $(params.pipeline-debug)
+    - name: DOCKER_CONFIG
+      value: /secrets
+  steps:
+  - args:
+    - -o
+    - json
+    - --file
+    - $(workspaces.source.path)/$(params.sbom-filepath)
+    - $(params.image-ref)
+    image: ghcr.io/tap8stry/syft:v0.27.0
+    name: syft-bom-generator
+    volumeMounts:
+    - mountPath: /steps
+      name: steps-volume
+    - mountPath: /secrets
+      name: regcred  
+  - image: ghcr.io/tap8stry/bash
+    name: print-sbom
+    script: |
+      set -e
+      cat $(workspaces.source.path)/$(params.sbom-filepath)
+    securityContext:
+      runAsUser: 0
+    volumeMounts:
+    - mountPath: /steps
+      name: steps-volume
+  - image: ghcr.io/tap8stry/bash
+    name: write-url
+    script: |
+      set -e
+      echo $(params.sbom-filepath) | tee $(results.sbom-store.path)
+    securityContext:
+      runAsUser: 0
+  - name: cosign-attach-bom
+    image: ghcr.io/tap8stry/cosign:1.7.2
+    imagePullPolicy: Always
+    env:
+      # specifying DOCKER_CONFIG is required to allow buildkit to detect docker credentials
+      - name: DOCKER_CONFIG
+        value: /secrets
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        #!/bin/sh
+          
+        # ls -la /secrets
+        # cat /secrets/.dockerconfig > /secrets/coonfig.json
+        # cat /secrets/coonfig.json
+        imgRef=$(params.image-ref)@$(params.image-digest)
+        sbomFp=$(workspaces.source.path)/$(params.sbom-filepath)
+        echo "SBOM FP "$sbomFp
+        echo "IMG Ref "$imgRef
+        cosign attach sbom --sbom $sbomFp $imgRef
+        retVal=$?
+        if [ $retVal -ne 0 ]; then
+          echo "error attaching SBOM"
+        fi
+    volumeMounts:
+      - mountPath: /steps
+        name: steps-volume
+      - mountPath: /secrets
+        name: regcred       
+  volumes:
+  - emptyDir: {}
+    name: steps-volume
+  - name: regcred
+    secret:
+      secretName: img-registry-secret    
+  workspaces:
+  - name: source
