@@ -1,25 +1,25 @@
----
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
-metadata:
-  name: require-security-context
-spec:
-  validationFailureAction: enforce
-  background: true
-  rules:
-  - name: check-step
-    match:
-      resources:
-        kinds:
-        - tekton.dev/v1beta1/TaskRun.status
-    validate:
-      message: "A securityContext is required with {'runAsNonRoot': true, 'privileged': false, 'allowPrivilegeEscalation': false}"
-      pattern:
-        status:
-          taskSpec:
-            steps:
-              (name): "*"
-              securityContext:
-                 runAsNonRoot: true
-                 privileged: false
-                 allowPrivilegeEscalation: false
+# ---
+# apiVersion: kyverno.io/v1
+# kind: ClusterPolicy
+# metadata:
+#   name: require-security-context
+# spec:
+#   validationFailureAction: enforce
+#   background: true
+#   rules:
+#   - name: check-step
+#     match:
+#       resources:
+#         kinds:
+#         - tekton.dev/v1beta1/TaskRun.status
+#     validate:
+#       message: "A securityContext is required with {'runAsNonRoot': true, 'privileged': false, 'allowPrivilegeEscalation': false}"
+#       pattern:
+#         status:
+#           taskSpec:
+#             steps:
+#               (name): "*"
+#               securityContext:
+#                  runAsNonRoot: true
+#                  privileged: false
+#                  allowPrivilegeEscalation: false

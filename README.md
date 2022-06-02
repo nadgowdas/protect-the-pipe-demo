@@ -13,24 +13,25 @@ You can use `minikube` to run your tekton pipeline and deploy this application.
 
 1. Make sure you have `kubectl` configured with access to some kubernetes cluster
 
-2. Install Tekton:
+2. Install Tekton Pipelines:
 
 ```sh
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
 ```
 
-3. Install Kyverno
+3. Enable Tekton bundles
+
+```sh
+kubectl edit configmap feature-flags -n tekton-pipelines
+```
+
+Set `enable-tekton-oci-bundles` to `true`.
+
+4. Install Kyverno
 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/kyverno/kyverno/main/config/install.yaml
 ```
-
-4. Install common configuration (required for pipelines)
-
-```sh
-kubectl create ns common
- kubectl -n common apply -f signed-pipeline/init/
- ```
 
 5. Update Kyverno permissions 
 
@@ -40,23 +41,49 @@ kubectl create ns common
 kubectl apply -f kyverno-config/
 ```
 
-6. Apply Kyverno policies
+6. Apply Kyverno policies and common configurations managed via policies
 
 ```sh
-kubectl apply -f policies/secure
-kubectl apply -f policies/sign
+kubectl apply -f policies/
 ```
 
 
 ## Usage
 
-### Signed Pipeline (all policies will pass)
+### Policy Tests
 
 1. Try running a TaskRun. It will be blocked:
 
-2. Try running the pipeline in the default namespace. It will be blocked.
+```sh
+❯ kubectl apply -f policies/test-resources/hello-task-run.yaml
+Error from server: error when creating "policies/test-resources/hello-task-run.yaml": admission webhook "validate.kyverno.svc-fail" denied the request:
 
-3. Create a new namespace `run`. Kyverno will automatically add required defaults from the `common` namespace, and will generate a default network policy. The namespace will also be mutated with a `createdBy` annotation.
+resource TaskRun/default/hello-task-run was blocked due to the following policies
+
+block-task-runs:
+  check-user: Creating a TaskRun is not allowed.
+require-bundle:
+  check-task-run: 'validation error: a bundle is required. rule check-task-run failed
+    at path /spec/taskRef/'
+```
+
+2. Try running the pipeline in the default namespace. It will be blocked:
+
+```sh
+❯ kubectl create -f signed-pipeline/run/
+Error from server: error when creating "signed-pipeline/run/ptp-run.yaml": admission webhook "validate.kyverno.svc-fail" denied the request:
+
+resource PipelineRun/default/ptp-lab-pipelinerun-scwk9 was blocked due to the following policies
+
+require-namespaces:
+  check-pipeline: 'validation error: A namespace is required. rule check-pipeline
+    failed at path /metadata/namespace/'
+```
+
+
+### Signed Pipeline (all policies will pass)
+
+1. Create a new namespace `run`. Kyverno will automatically add required defaults from the `common` namespace, and will generate a default network policy. The namespace will also be mutated with a `createdBy` annotation.
 
 ```sh
 ❯ kubectl -n run get secrets
@@ -82,25 +109,31 @@ NAME           POD-SELECTOR   AGE
 default-deny   <none>         32m
 ```
 
-4. Run the signed pipeline:
+```sh
+❯ kubectl -n run get pvc
+NAME           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+ptp-demo-pvc   Bound    pvc-c927da68-f2d1-441a-91ea-78fe444d95fd   5Gi        RWX            standard       8s
+```
+
+2. Run the signed pipeline:
 
 ```sh
 kubectl create -f signed-pipeline/run/ -n run
 ```
 
-5. Check the pods for status:
+3. Check the pods for status:
 
 ```sh
 kubectl -n run get pods
 ```
 
-6. Check policy events:
+4. Check policy events:
 
 ```sh
 kubectl get events -A -w | grep Policy
 ```
 
-7. Cleanup
+5. Cleanup
 
 ```sh
 kubectl -n run delete pipelineruns
@@ -119,24 +152,6 @@ kubectl create -f unsigned-pipeline/run/ -n run2
 ```
 
 This pipeline will be blocked. The policy events will show violations.
-
-## Policies 
-
-1. **Block TaskRun**: enforces that only the Tekton controller can create TaskRun instances. Users should create a PipelineRun.
-
-2. **Require Namespace**: PipelineRun resources should be created in a namespace for isolation and security.
-
-3. **Generate Namespace Defaults**: Generates a default network policy and adds a `createdBy` label to each namespace
-
-4. **Require bundle**: Bundles are required for secure pipelines. Checks PipelineRun and TaskRun for bundles.
-
-5. **Verify Pipeline bundle signatures**: All pipeline bundles need to be signed. Pipelines should refer to bundles via digest. Bundles should contain the required in-toto attestations.
-
-6. **Verify Task bundles signatures**: All task bundles need to be signed. Tasks should refer to bundles via digest. Bundles should contain the required in-toto attestations.
-
-7. **Verify task.step images**: All task step images need to be signed. Steps should refer to images via digest. Images should have a vulnerability scan report.
-
-8. **Check container security context**: check container configuration for securityContext with required settings.
 
 ## Tekton Dashboard
 

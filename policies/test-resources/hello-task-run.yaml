@@ -3,6 +3,11 @@ kind: TaskRun
 metadata:
   name: hello-task-run
 spec:
-  taskRef:
-    name: hello
-    bundle: ghcr.io/jimbugwadia/tkn-bundle:v1
+  taskSpec:
+    steps:
+      - name: echo
+        image: alpine
+        script: |
+          #!/bin/sh
+          echo "Hello World"        
+
