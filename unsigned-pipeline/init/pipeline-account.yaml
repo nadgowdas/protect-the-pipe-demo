@@ -4,9 +4,7 @@ metadata:
   name: pipeline-account
 secrets:
 - name: img-registry-secret
-
 ---
-
 apiVersion: v1
 kind: Secret
 metadata:
@@ -14,9 +12,7 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: pipeline-account
 type: kubernetes.io/service-account-token
-
 ---
-
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -28,9 +24,7 @@ rules:
 - apiGroups: ["apps"]
   resources: ["deployments"]
   verbs: ["get", "create", "update", "patch"]
-
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:

@@ -2,7 +2,8 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   annotations:
-    cosign.sigstore.dev/imageRef: ghcr.io/tap8stry/kaniko:v1
+    cosign.sigstore.dev/message: H4sIAAAAAAAA/wBKBrX5H4sIAAAAAAAA/+xXbVPcOBLO5/kVfV6qAlX4bRhmwFfcLQssRSUBCkhuq1IpSiO3bTG25EjyTGaP++9XkjzvwCV7ybfoA8Zyvzzd/XRLo4ka+cOGlalfN6rwWUVyDKakKl99txVFUdTv9exz0N+3z6jr3s3Wfrf3Ku519/YG/bi/t/8q2tuP+71XEH0/CM+vRmkiX0WRKiSrScpJmotJSjbklCZZ9oKdNpj5MxwTGWaiTFGqUPbCYp/XlUwPB0XZ/zPK9B7NCtXrFUY45+FdSEVVS1SK8dzXRPr5n91BtxdFg16/++PCJzX7gFIxwRPQONKCBymOw3E8RE3izojxNIE7okadCjVJiSZJB4BwLjTRTHBlXmFZlRKNuZAMVQIXhk3wm6HXuljNaiwZRxVUjM8hREHcDeJ1WU1ylYClpuNqB6AkQyxb76Sug1EzRMlRowqYCMczg14UdL0OACcVJjAinI1ER9VIjWaKikpWayv56FtbdwVTNmCwnhQo0UiKwLgWQIAKrgnjKB0caEy94FyIvMTXqnUAWogysObeuI1UoOKvNaRYI09BcCBwKugIJaQEK/POU8AvSBuNCpDQAqioKrM7YbpgC4WMlWi+1SVqLKfAODQKpaoJxcDBR06GJSoXgcG3hloZJeRjJgWvkGsFuiAaKDEQkShWTkFIUEgbaVzIZgPvLqiGFkAUEFCa8JTIFN7MawC0bJRGaZJQE0kqWyl/NeOXpELYlpihRE5xB0QGusA2s1o4/C6Prn4X747Pz1pDGWlKnUAQLtJiJVdcXBNdGEvG7FL6nrJ9enXy5uzm94u3Gw42zd4V6AzYzOIXbUqQwnDa1nvZ7snV5d3ZH3erRj1vSeLsj7ub4/vjm/PbVaGcSsNlxym/luIBqQ4dSYRMxnGwH8S/qoJ09/sJ7cf9/iAeZIMMo+EgJb3eYXRADw/68d4AaYZk2I2zvRjp3uFhN+tj3D3IsuyAHPaGeED2nw7SlUJwmBSMFrOWmLCytKTYbrECU+Dg7CzF9dv7i7enZzf3s6pJVE2pn2LCKctR6dX6PzRKW4d6gwH+6cX52e3dpp2TgjCuTFEyljfSTijIxKxZU+tm3dr9X7T2/ubthqn3N28BOgBKY90GSmTejikftrZdMwSLku+0n3w/nfPzaC63IOVCrqXc0db2RMiR7XsVuCkV1EQXO+FcveXekg9UmnEbycKJhb6QEZT5JZmKRvvG3Lf4Cd2MXsoz8vEs+OU2uz+5uvz94tx+ARiTssEEWqaHgcuE6ztrMYG8cM2gSX2gtJyut8FSJdxthnB3o7Ef7CRjenriUpe0fmXDj9V7hTKByG6NRdlU+E40XM9rVpk3M0eeAThzKzFnBpmvkEp00ZvEMZ6fMpnAs2ncYIm7hKmjj//2jGkv8dZK5e16elqbD1bS2/UaWT4p5irhJZ636101um60PZJPmbTif62w3n8+zZBqlFXLp3eoFMnx2lHmJX10l4H2fJtFHY6ET+raSbaCX2ohNcoXifCEfDKOgrgfdJdIMZFMrxDzaynx9SV8DuDD5yUcDoGvhd9OQwfGDp0EHlsUlGj4XzmER3j4DK+Dj9GnwDbQa/DlAzyCRoTQ3Z7C1km4NjZ/nI/7FR9ICwFrrIR/PKM5m6dfn3GXUioUy7lv/7Aqf5EsTjaJg0HLDit43ZTltSgZnSZwXE7IVK0QFD564ZDxUBXeLng+9T59E86lIQjwC5jLJ8um5lq2MgvNGSrxc8MkpuaCQspSTNwwGzFtdlLUSDW44QNUYopcM1Kq1vZLI3YxZN14cjqLqWO0H+eyv/ytDbgz3/q/6cKqfLn/7HXDvh5tbRvji+87cwFW5TeYrZ9Uv26t2XF9DydXtxfnl/fXx7e3/7q6OT3yaqLUJJKpt5A0hPROLAvgA0qWTdsfKd6Wc7YI2AnZP74/wimEqGnLoPYRmO11RYn6AymPtv65CCODj7Dl9sHnCBF8+ru56vC5yAwaSmlu3iznhiBuvM+FMvbMKbV+Ti2AznVXeqWWbEw0mqie1F/myMoJZ0gHq6szA9Ted54/Dd2/M8Tu7dJKm9pvavgvg37e3JMK/moU345oKeBFsy/H7Pq+0/lxv9Z/rp/r5/q5vt/6bwAAAP//oT2lQwAWAAABAAD//8hIo9RKBgAA
+    cosign.sigstore.dev/signature: MEUCIQCGIfnI6qX0GgkQKzgx/cq2aZJhdLJS8DrqZT4mJDMjIAIgfPTB6T4C4K7ZIXJOgV/g6+NGAfqWRUVZpAJxxdq/RZ8=
     tekton.dev/categories: Image Build
     tekton.dev/pipelines.minVersion: 0.12.1
     tekton.dev/tags: image-build
@@ -33,7 +34,7 @@ spec:
   - description: Chains configuration for image digest
     name: IMAGE_DIGEST
   - description: Chains configuration for image URL
-    name: IMAGE_URL  
+    name: IMAGE_URL
   steps:
   - args:
     - $(params.EXTRA_ARGS)
@@ -69,34 +70,35 @@ spec:
       cat $(params.CONTEXT)/image-digested | jq '.[0].value' -rj | tee /tekton/results/IMAGE_DIGEST
       echo $(params.IMAGE) > /tekton/results/IMAGE_URL
     workingDir: $(workspaces.source.path)
-  - name: cosign-sign-img
+  - args:
+    - |
+      #!/bin/sh
+
+      cat $(params.CONTEXT)/image-digested | jq '.[0].value' -rj | tee img-digest
+      digest=$(cat img-digest)
+      imgRef=$(params.IMAGE)@$digest
+      export COSIGN_PASSWORD="passw0rd"
+      echo "Cosign Verify Image "$imgRef
+      cosign sign --key /etc/cosign/cosign.key $imgRef
+      retVal=$?
+      if [ $retVal -ne 0 ]; then
+        echo "error signing image"
+      fi
+    command:
+    - /bin/sh
+    - -c
+    env:
+    - name: DOCKER_CONFIG
+      value: /secrets
     image: ghcr.io/tap8stry/cosign:1.7.2
     imagePullPolicy: Always
-    command: ["/bin/sh", "-c"]
-    workingDir: $(workspaces.source.path)
-    env:
-      # specifying DOCKER_CONFIG is required to allow buildkit to detect docker credentials
-      - name: DOCKER_CONFIG
-        value: /secrets
-    args:
-      - |
-        #!/bin/sh
-
-        cat $(params.CONTEXT)/image-digested | jq '.[0].value' -rj | tee img-digest
-        digest=$(cat img-digest)
-        imgRef=$(params.IMAGE)@$digest
-        export COSIGN_PASSWORD="passw0rd"
-        echo "Cosign Verify Image "$imgRef
-        cosign sign --key /etc/cosign/cosign.key $imgRef
-        retVal=$?
-        if [ $retVal -ne 0 ]; then
-          echo "error signing image"
-        fi
+    name: cosign-sign-img
     volumeMounts:
-      - mountPath: /etc/cosign
-        name: cosign-private-key
-      - mountPath: /secrets
-        name: regcred               
+    - mountPath: /etc/cosign
+      name: cosign-private-key
+    - mountPath: /secrets
+      name: regcred
+    workingDir: $(workspaces.source.path)
   volumes:
   - name: registry-secret
     secret:
@@ -106,7 +108,6 @@ spec:
       secretName: cosign-private-key
   - name: regcred
     secret:
-      secretName: img-registry-secret        
+      secretName: img-registry-secret
   workspaces:
   - name: source
-
