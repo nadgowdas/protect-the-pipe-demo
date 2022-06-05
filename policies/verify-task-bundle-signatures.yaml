@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: signed-task-bundle
+spec:
+  validationFailureAction: enforce
+  webhookTimeoutSeconds: 30
+  rules:
+  - name: check-signature
+    match:
+      resources:
+        kinds:
+        - TaskRun
+    imageExtractors:
+      TaskRun:
+        - name: "taskruns"
+          path: /spec/taskRef
+          value: "bundle"
+          key: "name"
+    verifyImages:
+    - imageReferences:
+      - "*"
+      attestors:
+      - entries:
+        - keys: 
+            publicKeys: |-
+              -----BEGIN PUBLIC KEY-----
+              MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEahmSvGFmxMJABilV1usgsw6ImcQ/
+              gDaxw57Sq+uNGHW8Q3zUSx46PuRqdTI+4qE3Ng2oFZgLMpFN/qMrP0MQQg==
+              -----END PUBLIC KEY-----

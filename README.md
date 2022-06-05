@@ -47,28 +47,21 @@ kubectl apply -f kyverno-config/
 kubectl apply -f policies/
 ```
 
-7. Update image registry credentials. The pipeline will build and store application image along with signature and attestations in this registry.
+7. Configure your image registry credentials. The pipeline will build and store the application image along with signature and attestations in this registry.
+
+This command will copy your registry credentials to `img-registry-secret` in the `common` namespace, which is required for the policy that synchronizes secrets:
 
 ```sh
-kubectl create secret --dry-run=true -o yaml docker-registry sample-creds --docker-server=<registry-url> --docker-password=<auth token/password> --docker-username=<username> --docker-email=<email>
+kubectl create secret docker-registry img-registry-secret --from-file=.dockerconfigjson=$HOME/.docker/config.json -n common
 ```
 
-E.g. 
+Alternatively, you can configure the credentials as follows:
 
 ```sh
-kubectl create secret --dry-run=true -o yaml docker-registry tekton-adoption --docker-server=us.icr.io --docker-password=abcd1234 --docker-username=iamapikey --docker-email=nadgowda@us.ibm.com
-
-...
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJ1cy5pY3IuaW8iOnsidXNlcm5hbWUiOiJpYW1hcGlrZXkiLCJwYXNzd29yZCI6ImFiY2QxMjM0IiwiZW1haWwiOiJuYWRnb3dkYUB1cy5pYm0uY29tIiwiYXV0aCI6ImFXRnRZWEJwYTJWNU9tRmlZMlF4TWpNMCJ9fX0=
-...
+kubectl create secret docker-registry img-registry-secret --docker-server=${SERVER} --docker-username=${USER} --docker-password=${PASSWORD} --docker-email=${EMAIL} -n run
 ```
 
-Copy the dockerconfigjson value and update into [signed-pipeline/init/registry-secret.yaml](/signed-pipeline/init/registry-secret.yaml)
-
-Also, update image-url parameter value in the [pipelinerun](/signed-pipeline/run/ptp-run.yaml#L15)
-
-
+8. Updated the image registry in the [signed-pipeline/run/ptp-run.yaml](signed-pipeline/run/ptp-run.yaml) from `ghcr.io/tap8stry/hello-ssf` to match your registry details.
 
 ## Usage
 
