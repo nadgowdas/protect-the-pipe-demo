@@ -33,35 +33,22 @@ Set `enable-tekton-oci-bundles` to `true`.
 kubectl apply -f https://raw.githubusercontent.com/kyverno/kyverno/main/config/install.yaml
 ```
 
-5. Update Kyverno permissions 
-
-(these are needed to allow Kyverno to generate secrets, roles, etc.)
-
-```sh
-kubectl apply -f kyverno-config/
-```
-
-6. Apply Kyverno policies and common configurations managed via policies
+5. Apply Kyverno policies and common configurations managed via policies
 
 ```sh
 kubectl apply -f policies/
 ```
 
-7. Configure your image registry credentials. The pipeline will build and store the application image along with signature and attestations in this registry.
-
-This command will copy your registry credentials to `img-registry-secret` in the `common` namespace, which is required for the policy that synchronizes secrets:
-
-```sh
-kubectl create secret docker-registry img-registry-secret --from-file=.dockerconfigjson=$HOME/.docker/config.json -n common
-```
-
-Alternatively, you can configure the credentials as follows:
+6. Configure your image registry credentials. The pipeline will build and store the application image along with signature and attestations in this registry.
 
 ```sh
 kubectl create secret docker-registry img-registry-secret --docker-server=${SERVER} --docker-username=${USER} --docker-password=${PASSWORD} --docker-email=${EMAIL} -n run
 ```
 
-8. Updated the image registry in the [signed-pipeline/run/ptp-run.yaml](signed-pipeline/run/ptp-run.yaml) from `ghcr.io/tap8stry/hello-ssf` to match your registry details.
+NOTE: due to a [Kaniko issue](https://github.com/GoogleContainerTools/kaniko/issues/1209#issuecomment-1087703245) the `--docker-server` needs to be specified as `--docker-server=https://index.docker.io/v1/` when using Docker Hub.
+
+
+7. Updated the image registry in the [signed-pipeline/run/ptp-run.yaml](signed-pipeline/run/ptp-run.yaml) from `ghcr.io/tap8stry/hello-ssf` to match your registry details.
 
 ## Usage
 

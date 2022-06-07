@@ -1,39 +1,17 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: kyverno:generate
+  name: kyverno:generate-additional-perms
+  labels:
+    app: kyverno
 rules:
 - apiGroups:
-  - networking.k8s.io
+  - "*"
   resources:
-  - ingresses
-  - ingressclasses
-  - networkpolicies
-  verbs:
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  - configmaps
   - secrets
-  - resourcequotas
-  - limitranges
   - serviceaccounts
   - persistentvolumeclaims
   - services
-  - deployments
-  verbs:
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - apps
-  resources:
   - deployments
   verbs:
   - create
