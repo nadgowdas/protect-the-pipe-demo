@@ -30,16 +30,24 @@ Set `enable-tekton-oci-bundles` to `true`.
 4. Install Kyverno
 
 ```sh
-kubectl create -f https://raw.githubusercontent.com/kyverno/kyverno/v1.7.0/config/install.yaml
+kubectl apply -f https://raw.githubusercontent.com/kyverno/kyverno/main/config/install.yaml
 ```
 
-5. Apply Kyverno policies and configurations
+5. Update Kyverno permissions 
+
+(these are needed to allow Kyverno to generate secrets, roles, etc.)
+
+```sh
+kubectl apply -f kyverno-config/
+```
+
+6. Apply Kyverno policies and common configurations managed via policies
 
 ```sh
 kubectl apply -f policies/
 ```
 
-6. Configure your image registry credentials. The pipeline will build and store the application image along with signature and attestations in this registry.
+7. Configure your image registry credentials. The pipeline will build and store the application image along with signature and attestations in this registry.
 
 This command will copy your registry credentials to `img-registry-secret` in the `common` namespace, which is required for the policy that synchronizes secrets:
 
@@ -53,7 +61,7 @@ Alternatively, you can configure the credentials as follows:
 kubectl create secret docker-registry img-registry-secret --docker-server=${SERVER} --docker-username=${USER} --docker-password=${PASSWORD} --docker-email=${EMAIL} -n run
 ```
 
-7. Updated the image registry in the [signed-pipeline/run/ptp-run.yaml](signed-pipeline/run/ptp-run.yaml) from `ghcr.io/tap8stry/hello-ssf` to match your registry details.
+8. Updated the image registry in the [signed-pipeline/run/ptp-run.yaml](signed-pipeline/run/ptp-run.yaml) from `ghcr.io/tap8stry/hello-ssf` to match your registry details.
 
 ## Usage
 
