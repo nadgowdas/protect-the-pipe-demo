@@ -12,7 +12,7 @@ spec:
     - name: pathToYamlFile
       value: kubernetes/picalc.yaml
     - name: imageUrl
-      value: ghcr.io/tap8stry/hello-ssf
+      value: docker.io/jbugwadia/hello-ssf
     - name: imageTag
       value: "1.0"
   serviceAccountName: pipeline-account
