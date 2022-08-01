@@ -3,6 +3,16 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: add-networkpolicy
+  annotations:
+    policies.kyverno.io/title: Generate NetworkPolicy
+    policies.kyverno.io/category: Tekton
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace
+    kyverno.io/kyverno-version: 1.7.2
+    policies.kyverno.io/minversion: 1.6.0
+    kyverno.io/kubernetes-version: "1.23"
+    policies.kyverno.io/description: >- 
+      Generate a default NetworkPolicy
 spec:
   rules:
   - name: default-deny
@@ -29,7 +39,17 @@ spec:
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: generate-defaults  
+  name: generate-defaults
+  annotations:
+    policies.kyverno.io/title: Generate Namespace Defaults
+    policies.kyverno.io/category: Tekton
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace
+    kyverno.io/kyverno-version: 1.7.2
+    policies.kyverno.io/minversion: 1.6.0
+    kyverno.io/kubernetes-version: "1.23"
+    policies.kyverno.io/description: >- 
+      Generate required defaults including secrets, roles, role bindings, and a service account
 spec:
   rules:
   - name: sync-image-push-secret
@@ -122,6 +142,16 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: generate-api-secrets
+  annotations:
+    policies.kyverno.io/title: Generate Pipeline Account
+    policies.kyverno.io/category: Tekton
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace
+    kyverno.io/kyverno-version: 1.7.2
+    policies.kyverno.io/minversion: 1.6.0
+    kyverno.io/kubernetes-version: "1.23"
+    policies.kyverno.io/description: >- 
+      Generate secret for Pipeline sccount. This executes after the SA is created.
 spec:
   rules:
   - name: sync-kubeapi-secret
@@ -149,6 +179,16 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: generate-pvc
+  annotations:
+    policies.kyverno.io/title: Generate PVC
+    policies.kyverno.io/category: Tekton
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace
+    kyverno.io/kyverno-version: 1.7.2
+    policies.kyverno.io/minversion: 1.6.0
+    kyverno.io/kubernetes-version: "1.23"
+    policies.kyverno.io/description: >- 
+      Generate default PVC
 spec:
   rules:
   - name: create-pvc
