@@ -28,6 +28,10 @@ spec:
     - sed
     image: ghcr.io/tap8stry/alpine
     name: update-yaml
+    securityContext:
+      runAsUser: 0
+      privileged: false
+      allowPrivilegeEscalation: false    
   - args:
     - apply
     - -f
@@ -36,6 +40,10 @@ spec:
     - kubectl
     image: ghcr.io/tap8stry/k8s-kubectl
     name: run-kubectl
+    securityContext:
+      runAsUser: 0
+      privileged: false
+      allowPrivilegeEscalation: false    
   workspaces:
   - description: The git repo
     name: git-source

@@ -52,6 +52,10 @@ spec:
       value: /secrets
     image: ghcr.io/tap8stry/anchore-grype:0.23
     name: grype-scanner
+    securityContext:
+      runAsUser: 0
+      privileged: false
+      allowPrivilegeEscalation: false    
     volumeMounts:
     - mountPath: /secrets
       name: regcred

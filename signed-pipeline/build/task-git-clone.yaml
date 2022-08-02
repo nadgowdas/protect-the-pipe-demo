@@ -128,6 +128,10 @@ spec:
       value: $(workspaces.basic-auth.path)
     image: ghcr.io/tap8stry/git-init:v0.21.0
     name: clone
+    securityContext:
+      runAsUser: 0
+      privileged: false
+      allowPrivilegeEscalation: false    
     script: |
       #!/usr/bin/env sh
       set -eu
