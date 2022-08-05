@@ -129,7 +129,7 @@ spec:
     image: ghcr.io/tap8stry/git-init:v0.21.0
     name: clone
     securityContext:
-      runAsUser: 0
+      runAsNonRoot: true
       privileged: false
       allowPrivilegeEscalation: false    
     script: |

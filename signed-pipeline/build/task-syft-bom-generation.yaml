@@ -38,7 +38,7 @@ spec:
     image: ghcr.io/tap8stry/syft:v0.27.0
     name: syft-bom-generator
     securityContext:
-      runAsUser: 0
+      runAsNonRoot: true
       privileged: false
       allowPrivilegeEscalation: false    
     volumeMounts:
@@ -49,21 +49,19 @@ spec:
   - image: ghcr.io/tap8stry/bash
     name: print-sbom
     securityContext:
-      runAsUser: 0
+      runAsNonRoot: true
       privileged: false
       allowPrivilegeEscalation: false    
     script: |
       set -e
       cat $(workspaces.source.path)/$(params.sbom-filepath)
-    securityContext:
-      runAsUser: 0
     volumeMounts:
     - mountPath: /steps
       name: steps-volume
   - image: ghcr.io/tap8stry/bash
     name: write-url
     securityContext:
-      runAsUser: 0
+      runAsNonRoot: true
       privileged: false
       allowPrivilegeEscalation: false    
     script: |

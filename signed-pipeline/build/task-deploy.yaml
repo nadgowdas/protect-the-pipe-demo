@@ -29,7 +29,7 @@ spec:
     image: ghcr.io/tap8stry/alpine
     name: update-yaml
     securityContext:
-      runAsUser: 0
+      runAsNonRoot: true
       privileged: false
       allowPrivilegeEscalation: false    
   - args:
