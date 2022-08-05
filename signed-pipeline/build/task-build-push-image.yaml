@@ -49,6 +49,8 @@ spec:
     name: build-and-push
     securityContext:
       runAsUser: 0
+      privileged: false
+      allowPrivilegeEscalation: false
     volumeMounts:
     - mountPath: /kaniko/.docker/
       name: registry-secret
@@ -61,7 +63,9 @@ spec:
     image: ghcr.io/tap8stry/imagedigestexporter:v0.16.2
     name: write-digest
     securityContext:
-      runAsUser: 0
+      runAsNonRoot: true
+      privileged: false
+      allowPrivilegeEscalation: false
     workingDir: $(workspaces.source.path)
   - image: ghcr.io/tap8stry/jq
     name: digest-to-results
@@ -92,6 +96,10 @@ spec:
       value: /secrets
     image: ghcr.io/tap8stry/cosign:1.7.2
     imagePullPolicy: Always
+    securityContext:
+      runAsNonRoot: true
+      privileged: false
+      allowPrivilegeEscalation: false
     name: cosign-sign-img
     volumeMounts:
     - mountPath: /etc/cosign
