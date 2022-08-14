@@ -27,7 +27,7 @@ spec:
       value: "true"
     taskRef:
       name: git-clone
-      bundle: ghcr.io/tap8stry/ptp-pipeline:1.0
+      bundle: ghcr.io/tap8stry/ptp-pipeline:4.0
     workspaces:
     - name: output
       workspace: git-source
@@ -41,7 +41,7 @@ spec:
     - clone-repo
     taskRef:
       name: kaniko
-      bundle: ghcr.io/tap8stry/ptp-pipeline:1.0
+      bundle: ghcr.io/tap8stry/ptp-pipeline:4.0
     workspaces:
     - name: source
       workspace: git-source
@@ -55,7 +55,7 @@ spec:
     - build-and-push-image
     taskRef:
       name: syft-bom-generator
-      bundle: ghcr.io/tap8stry/ptp-pipeline:1.0
+      bundle: ghcr.io/tap8stry/ptp-pipeline:4.0
     workspaces:
     - name: source
       workspace: git-source
@@ -69,7 +69,7 @@ spec:
     - build-and-push-image
     taskRef:
       name: grype-vulnerability-scan
-      bundle: ghcr.io/tap8stry/ptp-pipeline:1.0
+      bundle: ghcr.io/tap8stry/ptp-pipeline:4.0
   # - name: kube-linter-deployment-scan
   #   params:
   #   - name: pathToYamlFile
@@ -95,7 +95,7 @@ spec:
     - vulnerability-scan
     taskRef:
       name: deploy-using-kubectl
-      bundle: ghcr.io/tap8stry/ptp-pipeline:1.0
+      bundle: ghcr.io/tap8stry/ptp-pipeline:4.0
     workspaces:
     - name: git-source
       workspace: git-source

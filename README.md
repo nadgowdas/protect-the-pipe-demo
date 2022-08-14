@@ -42,7 +42,7 @@ kubectl apply -f policies/
 6. Configure your image registry credentials. The pipeline will build and store the application image along with signature and attestations in this registry.
 
 ```sh
- kubectl create secret generic img-registry-secret --from-file=config.json=/home/jim/.docker/config.json --type=Opaque -n run
+ kubectl create secret generic img-registry-secret --from-file=config.json=$HOME/.docker/config.json --type=Opaque -n common
 ```
 
 **NOTE:** the secret must be created using `config.json` and `Opaque` as the type, for the pipeline to work. If you create the secret using a different command, make sure the format matches the sample [registry-secret.yaml](signed-pipeline/init/registry-secret.yaml) secret.

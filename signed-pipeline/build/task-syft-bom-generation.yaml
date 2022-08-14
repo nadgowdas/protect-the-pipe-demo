@@ -67,8 +67,6 @@ spec:
     script: |
       set -e
       echo $(params.sbom-filepath) | tee $(results.sbom-store.path)
-    securityContext:
-      runAsUser: 0
   - args:
     - "#!/bin/sh\n  \n# ls -la /secrets\n# cat /secrets/.dockerconfig > /secrets/coonfig.json\n#
       cat /secrets/coonfig.json\nimgRef=$(params.image-ref)@$(params.image-digest)\nsbomFp=$(workspaces.source.path)/$(params.sbom-filepath)\necho
