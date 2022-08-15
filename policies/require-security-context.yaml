@@ -22,6 +22,11 @@ spec:
       resources:
         kinds:
         - tekton.dev/v1beta1/TaskRun.status
+    preconditions:
+      any:
+      - key: "{{ request.object.name }}"
+        operator: NotEquals 
+        value: "build-and-push"
     validate:
       message: "A securityContext is required with {'runAsNonRoot': true, 'privileged': false, 'allowPrivilegeEscalation': false}"
       pattern:
