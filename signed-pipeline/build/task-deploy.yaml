@@ -29,7 +29,7 @@ spec:
     image: ghcr.io/tap8stry/alpine
     name: update-yaml
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false    
   - args:
@@ -41,7 +41,7 @@ spec:
     image: ghcr.io/tap8stry/k8s-kubectl
     name: run-kubectl
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false    
   workspaces:

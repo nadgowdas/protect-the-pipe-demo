@@ -4,9 +4,8 @@ metadata:
   name: ptp-demo-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
-
+      storage: 20Gi
 
