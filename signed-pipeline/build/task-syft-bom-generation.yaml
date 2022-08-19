@@ -38,7 +38,7 @@ spec:
     image: ghcr.io/tap8stry/syft:v0.27.0
     name: syft-bom-generator
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false    
     volumeMounts:
@@ -49,7 +49,7 @@ spec:
   - image: ghcr.io/tap8stry/bash
     name: print-sbom
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false    
     script: |
@@ -61,7 +61,7 @@ spec:
   - image: ghcr.io/tap8stry/bash
     name: write-url
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false    
     script: |
@@ -81,6 +81,10 @@ spec:
     image: ghcr.io/tap8stry/cosign:1.7.2
     imagePullPolicy: Always
     name: cosign-attach-bom
+    securityContext:
+      runAsUser: 0
+      privileged: false
+      allowPrivilegeEscalation: false    
     volumeMounts:
     - mountPath: /steps
       name: steps-volume

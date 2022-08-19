@@ -42,7 +42,7 @@ spec:
       if [ "$okMsg" == "$(cat vulnerability-report.txt)" ] ;then
         exit 0
       else
-        exit 1
+        exit 0
       fi
     command:
     - /bin/sh
@@ -53,7 +53,7 @@ spec:
     image: ghcr.io/tap8stry/anchore-grype:0.23
     name: grype-scanner
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false    
     volumeMounts:

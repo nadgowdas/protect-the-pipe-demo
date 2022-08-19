@@ -63,7 +63,7 @@ spec:
     image: ghcr.io/tap8stry/imagedigestexporter:v0.16.2
     name: write-digest
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false
     workingDir: $(workspaces.source.path)
@@ -97,7 +97,7 @@ spec:
     image: ghcr.io/tap8stry/cosign:1.7.2
     imagePullPolicy: Always
     securityContext:
-      runAsNonRoot: true
+      runAsUser: 0
       privileged: false
       allowPrivilegeEscalation: false
     name: cosign-sign-img
