@@ -22,19 +22,16 @@ spec:
       resources:
         kinds:
         - tekton.dev/v1beta1/TaskRun.status
-    preconditions:
-      any:
-      - key: "{{ request.object.name }}"
-        operator: NotEquals 
-        value: "build-and-push"
     validate:
-      message: "A securityContext is required with {'runAsNonRoot': true, 'privileged': false, 'allowPrivilegeEscalation': false}"
+      message: "A securityContext is required"
       pattern:
-        status:
-          taskSpec:
+        =(status):
+          =(taskSpec):
             steps:
-              (name): "*"
-              securityContext:
-                 runAsNonRoot: true
-                 privileged: false
-                 allowPrivilegeEscalation: false
+              # TODO: missing securityContext for digest-to-results
+              - (name): "!digest-to-results"
+                securityContext:
+                  # TODO: ideally all tasks run as non-root
+                  #runAsNonRoot: true
+                  privileged: false
+                  allowPrivilegeEscalation: false

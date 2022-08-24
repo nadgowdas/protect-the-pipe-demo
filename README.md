@@ -53,10 +53,21 @@ kubectl apply -f policies/
 
 ### Signed Pipeline (all policies will pass)
 
-1. Create a new namespace `run`. Kyverno will automatically add required defaults from the `common` namespace, and will generate a default network policy. The namespace will also be mutated with a `createdBy` annotation.
+1. Create a new namespace `run`:
 
 ```sh
-❯ kubectl -n run get secrets
+ kubectl create ns run
+```
+
+Kyverno will automatically add required defaults from the `common` namespace, and will generate a default network policy. The namespace will also be mutated with a `createdBy` annotation.
+
+You can check the secrets, roles, rolebinding, and network policy using the following commands:
+
+```sh
+kubectl -n run get secrets
+```
+
+```sh
 NAME                  TYPE                                  DATA   AGE
 cosign-private-key    Opaque                                1      31m
 img-registry-secret   Opaque                                1      31m
@@ -64,7 +75,10 @@ kube-api-secret       kubernetes.io/service-account-token   3      31m
 ```
 
 ```sh
-❯ kubectl -n run get role
+kubectl -n run get role
+```
+
+```sh
 NAME            CREATED AT
 pipeline-role   2022-05-15T16:31:24Z
 
@@ -74,13 +88,19 @@ pipeline-role-binding   Role/pipeline-role   32m
 ```
 
 ```sh
-❯ kubectl -n run get netpol
+kubectl -n run get netpol
+```
+
+```sh
 NAME           POD-SELECTOR   AGE
 default-deny   <none>         32m
 ```
 
 ```sh
-❯ kubectl -n run get pvc
+kubectl -n run get pvc
+```
+
+```sh
 NAME           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 ptp-demo-pvc   Bound    pvc-c927da68-f2d1-441a-91ea-78fe444d95fd   5Gi        RWX            standard       8s
 ```
@@ -148,18 +168,17 @@ INFO[0103] Pushing image to docker.io/jbugwadia/hello-ssf:1.0
 INFO[0107] Pushed image to 1 destinations
 ```
 
-1. Check policy events:
+6. Check policy events:
 
 ```sh
 kubectl get events -A -w | grep Policy
 ```
 
-5. Cleanup
+7. Cleanup
 
 ```sh
 kubectl -n run delete pipelineruns
 kubectl delete ns run
-kubectl delete ur --all -n kyverno
 ```
 
 ### Unsigned pipeline
