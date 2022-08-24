@@ -2,7 +2,7 @@
 
 This is a sample tekton based application build pipepline. 
 
-> :warning: This pipeline is not intended to be used in production. Please check the [open issues](https://github.com/nadgowdas/protect-the-pipe-demo/issues) for known issues.
+> :warning: This pipeline is not intended to be used in production. Please check the [open issues](https://github.com/nadgowdas/protect-the-pipe-demo/issues) for known problems.
 
 Follow these instructions to setup this pipeline and run it against your sample application repository.
 In this example, we are going to build and deploy [tekton-tutorial-openshift](https://github.com/IBM/tekton-tutorial-openshift) application.
